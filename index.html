@@ -86,7 +86,8 @@
             }
           }
           function onPlayerError(event){
-            console.log("error event:", event);
+            player.nextVideo();
+            playing = true;
           }
 
           function changeMarquee(text){
@@ -105,6 +106,7 @@
 
           function nextVid(){
             player.nextVideo();
+            playing = true;
           }
           //Handling Video changes
           // let submitButton = document.getElementById("submit-button");
@@ -124,6 +126,8 @@
         <!-- END CUT/PASTE FEST -->
       </section>
       <section id="sys-info">
+        <p id="processor-speed"></p>
+        <script src="/socket.io/socket.io.js"></script>
         <script src="./js/comp-data.js"></script>
       </section>
       <section id="timer">

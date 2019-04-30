@@ -1,2 +1,5 @@
 *.txt
 node_modules
+
+#Only until you update to have decent key management elsewhere
+js/youtubePlayer.js

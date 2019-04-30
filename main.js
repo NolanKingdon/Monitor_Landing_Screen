@@ -1,8 +1,9 @@
 const { app, BrowserWindow } = require('electron');
 const path = require("path");
 const url = require("url");
-require('./js/node/sys-info.js');
 //Server vars and setup
+require('./js/node/express-server.js');
+require('./js/node/sys-info.js');
 
 //Electron Window setup
 let win;

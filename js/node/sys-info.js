@@ -1,28 +1,39 @@
 let si = require('systeminformation');
-let os = require('os');
-const http = require('../../main.js');
-const io = require('socket.io')(http);
+let expServer = require('./express-server.js');
+let io = require('socket.io')(expServer);
 
-io.on('connection', (socket) => {
-  socket.emit('TEST_EMIT', {hello: "world"});
-  socket.on('TEST_RECEIPT', (data)=>{
-    console.log(data);
+let currentLoad;
+let resolution;
+let gpu;
+
+io.on('connection', function (socket) {
+  console.log("Connection Successful");
+
+
+  //Sending CPU processing speed
+  setInterval( () => {
+    si.currentLoad( (data) => {
+      currentLoad = data.currentload;
+      socket.emit('CPU_METRICS', {
+        load: currentLoad
+      })
+    })
+    }, 1000
+  );
+
+
+  //Sending GPU and resolution information
+  si.graphics( (data) => {
+    resolution = {
+      x: data.displays[0].resolutionx,
+      y: data.displays[0].resolutiony,
+    };
+    gpu = data.controllers[0].model;
+
+    socket.emit('DISPLAY_INFO', {
+      resolution,
+      gpu
+    })
   });
+
 });
-
-// setInterval( ()=> {
-//     si.cpuCurrentspeed()
-//     .then(data => console.log(data))
-//     .catch(error => console.log(error));}
-//   , 5000)
-//
-// si.cpu()
-
-setInterval( () => {
-    si.currentLoad()
-      .then( data => console.log(data.currentload))
-      .catch( err => console.log(err));
-  }, 1000
-);
-
-// si.getDynamicData("*","*").then((data) => console.log(data.currentSpeed));

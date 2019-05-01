@@ -259,3 +259,45 @@ body {
 #hours-invisible-scroll::-webkit-scrollbar-thumb:hover, #minutes-invisible-scroll::-webkit-scrollbar-thumb:hover, #seconds-invisible-scroll::-webkit-scrollbar-thumb:hover {
   background: transparent;
 }
+
+
+/*
+============================
+||        sys-info        ||
+============================
+ */
+
+#sys-info {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10pt;
+  color: white;
+  align-content: center;
+}
+
+#sys-info-body {
+  background: rgba(0,0,0,0.3);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 2em;
+  align-items: center;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#sys-header {
+  font-size: 12pt;
+  grid-area: 1/1/1/7;
+  font-weight: 400;
+  text-align: center;
+}
+
+.sys-title-col {
+  font-weight: 800;
+  text-align: right;
+}
+
+.sys-data-col {
+  text-align: left;
+}

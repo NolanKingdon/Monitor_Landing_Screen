@@ -126,7 +126,24 @@
         <!-- END CUT/PASTE FEST -->
       </section>
       <section id="sys-info">
-        <p id="processor-speed"></p>
+        <div id="sys-info-body">
+          <!--
+          Think layout.
+
+          Get graph in (Maybe double line for temp/processor percent?)
+          get more gpu info
+          get network info (maybe)
+          get hardware info
+
+         -->
+          <h2 id="sys-header">System Information</h2>
+          <p id="sys-cpu-head" class="sys-title-col">CPU:</p>
+          <p id="processor-speed" class="sys-data-col"></p>
+          <p class="sys-title-col">GPU:</p>
+          <p id="gpu" class="sys-data-col"></p>
+          <p class="sys-title-col">Screen Res:</p>
+          <p id="sys-screen" class="sys-data-col"></p>
+        </div>
         <script src="/socket.io/socket.io.js"></script>
         <script src="./js/comp-data.js"></script>
       </section>

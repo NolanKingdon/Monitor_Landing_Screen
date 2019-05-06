@@ -53,6 +53,9 @@ function execute(input) {
 function displayVideos(videoList){//Displaying Search results on dash
   console.log(videoList);
   resultContainer = document.getElementById("yt-search-results");
+  while(resultContainer.firstChild){
+      resultContainer.removeChild(resultContainer.firstChild);
+    }
 
   for(let i=0; i<videoList.length; i++){
     let vidContainer = document.createElement("div");
@@ -60,10 +63,8 @@ function displayVideos(videoList){//Displaying Search results on dash
 
     vidContainer.addEventListener("click", () => {
       player.loadVideoById(videoList[i].id, "large");
-      resultContainer.style.display = "none";
-      while(resultContainer.firstChild){
-        resultContainer.removeChild(resultContainer.firstChild);
-      }
+      //Below will auto-close search results. Given costly nature of searching, let's leave this out
+      // resultContainer.style.display = "none";
 
       //TODO - Add in sleek styles for the search function
       //     - Add in playlist compatibility

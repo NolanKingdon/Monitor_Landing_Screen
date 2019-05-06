@@ -34,7 +34,6 @@ body {
   text-align: center;
   width: 100%;
   flex-grow: 0;
-  margin-bottom: 30vh;
 }
 
 #clock-wrapper {
@@ -94,10 +93,9 @@ body {
  }
 
  #youtube-body {
-   min-height: 35vh;
+   min-height: 45vh;
    max-width: 576px; /*This appears to be the max width for a third of my screen*/
    overflow: hidden;
-   flex-grow: 2;
  }
 
 #yt-control-flex {
@@ -279,11 +277,12 @@ body {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: auto;
-  grid-gap: 2em;
+  grid-gap: 0.5em;
   align-items: center;
-  width: 80%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding: 5px 10px 10px 10px;
 }
 
 #sys-header {
@@ -293,11 +292,56 @@ body {
   text-align: center;
 }
 
+#gpu {
+  grid-area: auto / 1 / auto / 4;
+}
+
+#sys-screen {
+  grid-area: auto / 5 / auto / 6;
+}
+
+#sys-cpu-info {
+  grid-area: 3 / 1 / 4 / 4;
+}
+
+#processor-speed {
+  grid-area: auto / 5 / auto / 6;
+}
+
 .sys-title-col {
   font-weight: 800;
-  text-align: right;
+  text-align: left;
+  grid-area: auto / 1 / auto / 7;
 }
 
 .sys-data-col {
-  text-align: left;
+  text-align: right;
+}
+
+#sys-info-drives {
+  grid-area: auto / 1 / auto / 7;
+}
+
+.sys-info-drive-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  align-items: center;
+}
+
+.sys-info-drive-row * {
+  text-align: center;
+}
+
+/*Progress bar styles*/
+
+.sys-info-progress-container {
+  width: 200px;
+  height: 0.75em;
+  border: 1px solid RGBA(255,255,255,0.7);
+}
+
+.sys-info-progress-bar {
+  height: .75em;
+  background-color: RGBA(255,255,255,0.7);
 }

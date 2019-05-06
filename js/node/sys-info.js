@@ -7,11 +7,14 @@ let resolution;
 let gpu;
 let cpuInfo;
 let mbInfo;
-let memInfo;
+let diskInfo;
+
+function getHarddiskInfo(){
+
+}
+
 
 io.on('connection', function (socket) {
-  console.log("Connection Successful");
-
   //Sending CPU processing speed
   setInterval( () => {
     si.currentLoad( (data) => {
@@ -20,7 +23,7 @@ io.on('connection', function (socket) {
         load: currentLoad
       })
     })
-    }, 1000
+  }, 1000
   );
 
   //Websockets are overkill, but it was convenient to keep it all in one place like this
@@ -58,18 +61,21 @@ io.on('connection', function (socket) {
     })
   });
 
-//TODO - Fix this. I'm querying the RAM not the Harddrives like I want
-  si.mem( (data) => {
-    memInfo = {
-      total: data.total,
-      used: data.used,
-      available: data.available
-    }
-    console.log(memInfo);
-
-    socket.emit('MEM_INFO', {
-      memInfo: memInfo,
+  setInterval( () => {
+    diskInfo = [];
+    si.fsSize( (data) => {
+      for(let i=0; i<data.length; i++){
+        diskInfo.push({
+          drive: data[i].fs,
+          type: data[i].type,
+          sizeGB: data[i].size/1000000000, //bytes->gb: bytes/1e+9
+          //Maybe add used GB
+          percentUsed: (data[i].used / data[i].size)*100,
+        })
+      }
+      socket.emit('MEM_INFO', {
+        HDInfo: diskInfo,
+      })
     })
-
-  });
+  }, 10000);
 });

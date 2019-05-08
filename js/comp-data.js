@@ -32,8 +32,6 @@ socket.on('MEM_INFO', (data) => {
   //    Wites, so it's probably fine?
   for(let i=0; i<data.HDInfo.length; i++){
 
-    console.log(data.HDInfo[i]);
-
     let driveRow = document.createElement("div");
     driveRow.className = "sys-info-drive-row";
 
@@ -67,9 +65,7 @@ socket.on('MEM_INFO', (data) => {
   if(data.HDInfo.length !== prevLength){
     //Add/clearout the items dynamically
     prevLength = data.HDInfo.length;
-    console.log("Drives updated");
   } else {
     //Do nothing
-    console.log("Same amount of drives.");
   }
 });

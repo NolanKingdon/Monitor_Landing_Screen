@@ -17,12 +17,12 @@ function createWindow(){
 
   //creating browser window
   win = new BrowserWindow({
-    alwaysOnTop: true,
+    alwaysOnTop: false, // ******************* Remove when screen widens
     frame: false, //External frame
-    width: width*0.3,//Setting to a percent of the screen width
+    width: width*0.5,//Setting to a percent of the screen width
     height: height,//Setting to screen height
     icon: __dirname + '/images/clock.png',
-    x: -width*0.3,//Offset so we're on the secondary screen
+    x: -width*0.5,//Offset so we're on the secondary screen
     y: 0,
   });
   win.setMenu(null);

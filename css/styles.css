@@ -20,6 +20,12 @@ body {
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
+  width: 50vw;
+}
+
+.horizontal-flex {
+  display: flex;
+  wrap: nowrap;
 }
 
 /*
@@ -96,18 +102,21 @@ body {
    min-height: 45vh;
    max-width: 576px; /*This appears to be the max width for a third of my screen*/
    overflow: hidden;
+   background-color: rgba(0,0,0,0.3);
  }
 
 #yt-control-flex {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  margin-top: -4px;
+  /*inline-block adds space whereas block didn't on #player*/
 }
 
 #youtube-body #player {
   margin: 0;
   padding: 0;
-  display: block;
+  display: inline-block;
 }
 
 #youtube-input {
@@ -345,3 +354,59 @@ body {
   height: .75em;
   background-color: RGBA(255,255,255,0.7);
 }
+
+/*
+============================
+||        todo-list       ||
+============================
+ */
+
+ #todo {
+   height: 50vh;
+   background-color: rgba(0,0,0,0.3);
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+ }
+
+  #todo-list {
+    height: 45vh;
+    overflow-y: scroll;
+  }
+/* Scrollbar styles */
+  /* width */
+  #todo-list::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  #todo-list::-webkit-scrollbar-track {
+    background: #333;
+  }
+
+  /* Handle */
+  #todo-list::-webkit-scrollbar-thumb {
+    background: black;
+
+  }
+
+  /* Handle on hover */
+  #todo-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  #todo-form {
+
+  }
+
+  .todo-section {
+    color: white;
+  }
+
+  .todo-section-header {
+    background-color: rgba(0,0,0,0.2);
+  }
+
+  .todo-section-header p{
+    display: inline;
+  }

@@ -10,218 +10,250 @@
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-database.js"></script>
   </head>
   <body>
-    <div class="vertical-flex">
-      <section id = "youtube-body">
-        <div id="player"></div>
-        <!-- TODO Switch to CSS marquee for more control -->
-        <marquee id="yt-title-scroll">Test text</marquee>
-        <div id="yt-control-flex">
-          <button id= "yt-play-toggle" class="btn" onclick="togglePlaying()">Play</button>
-          <button id= "yt-skip" class="btn" onclick="nextVid()">Next</button>
-          <input id = "youtube-input" type = "text"/>
-          <button id = "yt-submit" class="btn">Submit</button>
-          <button id = "yt-options" class="btn">...</button>
+    <div class="horizontal-flex">
+      <div class="vertical-flex">
+        <section id="todo">
+          <script src="./js/firebase.js"></script>
+          <div id="todo-list">
+            <div class="todo-section">
+              <div class="todo-section-header">
+                <p class="todo-section-label">Personal</p>
+                <p class="todo-section-active" id="todo-personal-open">0</p>
+                <p class="todo-section-next" id="todo-personal-next"></p>
+              </div>
+              <div class="todo-section-list" id="todo-personal-list">
+              </div>
+            </div>
+            <div class="todo-section">
+              <div class="todo-section-header">
+                <p class="todo-section-label">Hobby</p>
+                <p class="todo-section-active" id="todo-hobby-open">0</p>
+                <p class="todo-section-next" id="todo-hobby-next"></p>
+              </div>
+              <div class="todo-section-list" id="todo-hobby-list">
+              </div>
+            </div>
+            <div class="todo-section">
+              <div class="todo-section-header">
+                <p class="todo-section-label">School</p>
+                <p class="todo-section-active" id="todo-school-open">0</p>
+                <p class="todo-section-next" id="todo-hobby-next"></p>
+              </div>
+              <div class="todo-section-list" id="todo-school-list">
+              </div>
+            </div>
+          </div>
+          <form id="todo-form">
+            <input type="text" id="todo-title" placeholder="Task"></input>
+            <input type="text" id="todo-notes" placeholder="Notes"></input>
+            <input type="date" id="todo-date"></input>
+            <input type="time" id="todo-time"></input>
+            <select id="todo-lists">
+              <option value="personal">Personal</option>
+              <option value="school">School</option>
+              <option value="hobby">Hobby</option>
+            </select>
+            <button id="todo-add">Add</button>
+            <button type="reset">lol jk</button>
+          </form>
+          <script src="./js/todos.js"></script>
+        </section>
+      </div>
+      <div class="vertical-flex">
+        <section id = "youtube-body">
+          <div id="player"></div>
+          <!-- TODO Switch to CSS marquee for more control -->
+          <marquee id="yt-title-scroll">Test text</marquee>
+          <div id="yt-control-flex">
+            <button id= "yt-play-toggle" class="btn" onclick="togglePlaying()">Play</button>
+            <button id= "yt-skip" class="btn" onclick="nextVid()">Next</button>
+            <input id = "youtube-input" type = "text"/>
+            <button id = "yt-submit" class="btn">Submit</button>
+            <button id = "yt-options" class="btn">...</button>
 
-        </div>
-        <!-- TODO Add in a button to search playlists?/display your existing playlist -->
-        <div id="yt-search-results">
+          </div>
+          <!-- TODO Add in a button to search playlists?/display your existing playlist -->
+          <div id="yt-search-results">
 
-        </div>
+          </div>
 
-        <script>
-        //TODO - put this into a seperate file for simplicity sake
-          const windowWidth = window.innerWidth;
-          const playerHeight = windowWidth * 0.61;
-          const starterVideo = (Math.floor(Math.random() * 214)).toString();
-          let marqueeText = document.getElementById("yt-title-scroll");
-          let playing = false;
-          //TODO - play/pause icons
+          <script>
+          //TODO - put this into a seperate file for simplicity sake
+            const windowWidth = window.innerWidth/2;
+            const playerHeight = windowWidth * 0.6;
+            const starterVideo = (Math.floor(Math.random() * 214)).toString();
+            let marqueeText = document.getElementById("yt-title-scroll");
+            let playing = false;
+            //TODO - play/pause icons
 
-          var tag = document.createElement('script');
+            var tag = document.createElement('script');
 
-          tag.src = "https://www.youtube.com/iframe_api";
-          var firstScriptTag = document.getElementsByTagName('script')[0];
-          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-          var player;
-          function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-              height: playerHeight,
-              width: windowWidth,
-              //videoId: "hHW1oY26kxQ",
-              playerVars: {
-                color: "white",
-                listType: "playlist",
-                list: "PL0KqfOQxyR-MLbyTZLFUQuOfr9V5ElNSc",
-                index: starterVideo,
-                disablekb: 1,//No keyboard controls
-                enablejsapi: 1,//Allowing btn control
-                fs: 0,//Fullscreen off
-                iv_load_policy: 3,//annotations not default
-                modestbranding: 1,//prevents youtube logo
-                controls: 0,
-              },
-              events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange,
-                'onError': onPlayerError,
+            var player;
+            function onYouTubeIframeAPIReady() {
+              player = new YT.Player('player', {
+                height: playerHeight,
+                width: windowWidth,
+                //videoId: "hHW1oY26kxQ",
+                playerVars: {
+                  color: "white",
+                  listType: "playlist",
+                  list: "PL0KqfOQxyR-MLbyTZLFUQuOfr9V5ElNSc",
+                  index: starterVideo,
+                  disablekb: 1,//No keyboard controls
+                  enablejsapi: 1,//Allowing btn control
+                  fs: 0,//Fullscreen off
+                  iv_load_policy: 3,//annotations not default
+                  modestbranding: 1,//prevents youtube logo
+                  controls: 0,
+                },
+                events: {
+                  'onReady': onPlayerReady,
+                  'onStateChange': onPlayerStateChange,
+                  'onError': onPlayerError,
+                }
+              });
+            }
+            function onPlayerReady(event) {
+              event.target.playVideo();
+            }
+            var done = false;
+
+            function onPlayerStateChange(event) {
+              console.log(player.getVolume());//TODO - volume slider
+              if(event.data === -1){//unstarted
+                let title = player.getVideoData().title;
+                changeMarquee(title);
               }
-            });
-          }
-          function onPlayerReady(event) {
-            event.target.playVideo();
-          }
-          var done = false;
-
-          function onPlayerStateChange(event) {
-            console.log(player.getVolume());//TODO - volume slider
-            if(event.data === -1){//unstarted
-              let title = player.getVideoData().title;
-              changeMarquee(title);
+              if(event.data === 1){//playing
+              }
+              if(event.data === 2){//on pause
+              }
+              if(event.data === 3){//buffering
+                event.target.setShuffle({'shufflePlayList' : true});
+              }
             }
-            if(event.data === 1){//playing
-            }
-            if(event.data === 2){//on pause
-            }
-            if(event.data === 3){//buffering
-              event.target.setShuffle({'shufflePlayList' : true});
-            }
-          }
-          function onPlayerError(event){
-            player.nextVideo();
-            playing = true;
-          }
-
-          function changeMarquee(text){
-            marqueeText.innerHTML = text;
-          }
-
-          function togglePlaying(){
-            if(playing){
-              playing = false;
-              player.pauseVideo();
-            } else if(!playing){
+            function onPlayerError(event){
+              player.nextVideo();
               playing = true;
-              player.playVideo();
             }
-          }
 
-          function nextVid(){
-            player.nextVideo();
-            playing = true;
-          }
-          //Handling Video changes
-          // let submitButton = document.getElementById("submit-button");
-          // submitButton.addEventListener("click", () => {
-          //   let input = document.getElementById("youtube-input");
-          //   let inputValue = input.value;
-          //
-          //   player.loadPlaylist({
-          //     list: inputValue,
-          //     listType: "search",
-          //   });
-          // });
-        </script>
-        <!-- CUT/PASTE FEST -->
-        <script src="https://apis.google.com/js/api.js"></script>
-        <script src="./js/youtubePlayer.js"></script>
-        <!-- END CUT/PASTE FEST -->
-      </section>
-      <section id = "clock-body">
-        <div id = "clock-wrapper">
-          <h1 id = "clock"></h1>
-          <h2 id = "date"></h2>
-        </div>
-      </section>
-      <section id="timer">
-        <div id="timer-topline">
-          <!-- Increment row -->
-          <button class="timer-controls" onclick="addHour()"><img src="./images/icons/Chevron Up-white.png"/></button>
-          <button class="timer-controls" onclick="addMinute()"><img src="./images/icons/Chevron Up-white.png"/></button>
-          <button class="timer-controls" onclick="addSecond()"><img src="./images/icons/Chevron Up-white.png"/></button>
-          <button class="timer-controls" id="reset-timer" onclick="clearCount()">Reset</button>
-          <!-- Timer Face -->
-          <div class="number-container">
+            function changeMarquee(text){
+              marqueeText.innerHTML = text;
+            }
+
+            function togglePlaying(){
+              if(playing){
+                playing = false;
+                player.pauseVideo();
+              } else if(!playing){
+                playing = true;
+                player.playVideo();
+              }
+            }
+
+            function nextVid(){
+              player.nextVideo();
+              playing = true;
+            }
+            //Handling Video changes
+            // let submitButton = document.getElementById("submit-button");
+            // submitButton.addEventListener("click", () => {
+            //   let input = document.getElementById("youtube-input");
+            //   let inputValue = input.value;
+            //
+            //   player.loadPlaylist({
+            //     list: inputValue,
+            //     listType: "search",
+            //   });
+            // });
+          </script>
+          <!-- CUT/PASTE FEST -->
+          <script src="https://apis.google.com/js/api.js"></script>
+          <script src="./js/youtubePlayer.js"></script>
+          <!-- END CUT/PASTE FEST -->
+        </section>
+        <section id = "clock-body">
+          <div id = "clock-wrapper">
+            <h1 id = "clock"></h1>
+            <h2 id = "date"></h2>
+          </div>
+        </section>
+        <section id="timer">
+          <div id="timer-topline">
+            <!-- Increment row -->
+            <button class="timer-controls" onclick="addHour()"><img src="./images/icons/Chevron Up-white.png"/></button>
+            <button class="timer-controls" onclick="addMinute()"><img src="./images/icons/Chevron Up-white.png"/></button>
+            <button class="timer-controls" onclick="addSecond()"><img src="./images/icons/Chevron Up-white.png"/></button>
+            <button class="timer-controls" id="reset-timer" onclick="clearCount()">Reset</button>
+            <!-- Timer Face -->
+            <div class="number-container">
+              <!--
+              number-container is our fixed height box around our number to make sure that we don't have any adverse effects
+              from making enough room to scroll
+             -->
+              <div id="hours-invisible-scroll">
+                <!-- Our actual div that scrolls. z-index sits above our hours module. br's give some space to scroll with -->
+                <br/><br/><br/><br/>
+              </div>
+              <p id="timer-hours">00</p>
+            </div>
+            <div class="number-container">
+              <div id="minutes-invisible-scroll">
+                <br/><br/><br/><br/>
+              </div>
+              <p id="timer-minutes">00</p>
+            </div>
+            <div class="number-container">
+              <div id="seconds-invisible-scroll">
+                <br/><br/><br/><br/>
+              </div>
+              <p id="timer-seconds">00</p>
+            </div>
+            <button class="timer-controls" id="start-timer" onclick="beginCount()">Start</button>
+            <!-- Decrement Row -->
+            <button class="timer-controls" onclick="rmvHour()"><img src="./images/icons/Chevron Down-white.png"/></button>
+            <button class="timer-controls" onclick="rmvMinute()"><img src="./images/icons/Chevron Down-white.png"/></button>
+            <button class="timer-controls" onclick="rmvSecond()"><img src="./images/icons/Chevron Down-white.png"/></button>
+            <button class="timer-controls" id="pause-timer" onclick="pauseCount()">Pause</button>
+          </div>
+          <script src="./js/timer.js"></script>
+        </section>
+        <section id="sys-info">
+          <div id="sys-info-body">
             <!--
-            number-container is our fixed height box around our number to make sure that we don't have any adverse effects
-            from making enough room to scroll
+            Think layout.
+
+            Get graph in (Maybe double line for temp/processor percent?)
+            get more gpu info
+            get network info (maybe)
+            get hardware info
+
            -->
-            <div id="hours-invisible-scroll">
-              <!-- Our actual div that scrolls. z-index sits above our hours module. br's give some space to scroll with -->
-              <br/><br/><br/><br/>
-            </div>
-            <p id="timer-hours">00</p>
-          </div>
-          <div class="number-container">
-            <div id="minutes-invisible-scroll">
-              <br/><br/><br/><br/>
-            </div>
-            <p id="timer-minutes">00</p>
-          </div>
-          <div class="number-container">
-            <div id="seconds-invisible-scroll">
-              <br/><br/><br/><br/>
-            </div>
-            <p id="timer-seconds">00</p>
-          </div>
-          <button class="timer-controls" id="start-timer" onclick="beginCount()">Start</button>
-          <!-- Decrement Row -->
-          <button class="timer-controls" onclick="rmvHour()"><img src="./images/icons/Chevron Down-white.png"/></button>
-          <button class="timer-controls" onclick="rmvMinute()"><img src="./images/icons/Chevron Down-white.png"/></button>
-          <button class="timer-controls" onclick="rmvSecond()"><img src="./images/icons/Chevron Down-white.png"/></button>
-          <button class="timer-controls" id="pause-timer" onclick="pauseCount()">Pause</button>
-        </div>
-        <script src="./js/timer.js"></script>
-      </section>
-      <section id="sys-info">
-        <div id="sys-info-body">
-          <!--
-          Think layout.
+            <h2 id="sys-header">System Information</h2>
+            <!-- CPU Section -->
+            <p id="sys-cpu-head" class="sys-title-col">CPU:</p>
+            <p id="sys-cpu-info" class="sys-data-col"></p>
+            <p id="processor-speed" class="sys-data-col"></p>
+            <!-- Display Section -->
+            <p class="sys-title-col">Display:</p>
+            <p id="gpu" class="sys-data-col"></p>
+            <p id="sys-screen" class="sys-data-col"></p>
+            <p class="sys-title-col">Drives:</p>
+            <div id="sys-info-drives">
 
-          Get graph in (Maybe double line for temp/processor percent?)
-          get more gpu info
-          get network info (maybe)
-          get hardware info
-
-         -->
-          <h2 id="sys-header">System Information</h2>
-          <!-- CPU Section -->
-          <p id="sys-cpu-head" class="sys-title-col">CPU:</p>
-          <p id="sys-cpu-info" class="sys-data-col"></p>
-          <p id="processor-speed" class="sys-data-col"></p>
-          <!-- Display Section -->
-          <p class="sys-title-col">Display:</p>
-          <p id="gpu" class="sys-data-col"></p>
-          <p id="sys-screen" class="sys-data-col"></p>
-          <p class="sys-title-col">Drives:</p>
-          <div id="sys-info-drives">
-
+            </div>
           </div>
-        </div>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="./js/comp-data.js"></script>
-      </section>
-      <section id="todo">
-        <script src="./js/firebase.js"></script>
-        <form>
-          <input type="text" id="todo-title" placeholder="Task"></input>
-          <input type="text" id="todo-notes" placeholder="Notes"></input>
-          <input type="date" id="todo-date"></input>
-          <input type="time" id="todo-time"></input>
-          <select id="todo-lists">
-            <option value="personal">Personal</option>
-            <option value="school">School</option>
-            <option value="hobby">Hobby</option>
-          </select>
-          <button id="todo-add" onclick="(e)=>e.preventDefault()">Add</button>
-          <button type="reset">lol jk</button>
-        </form>
-        <script src="./js/todos.js"></script>
-      </section>
+          <script src="/socket.io/socket.io.js"></script>
+          <script src="./js/comp-data.js"></script>
+        </section>
+      </div>
     </div>
   </body>
   <script>
     require('./js/hexClock.js');
   </script>
-
 </html>

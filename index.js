@@ -5,7 +5,6 @@ const url = require("url");
 require('./js/node/express-server.js');
 require('./js/node/sys-info.js');
 //require('./js/node/tasks/tasks.js');
-require('./js/node/firebase.js');
 //Electron Window setup
 let win;
 

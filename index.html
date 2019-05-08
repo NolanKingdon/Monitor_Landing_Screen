@@ -6,6 +6,8 @@
     <link rel = "stylesheet" href = "css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-database.js"></script>
   </head>
   <body>
     <div class="vertical-flex">
@@ -198,6 +200,23 @@
         </div>
         <script src="/socket.io/socket.io.js"></script>
         <script src="./js/comp-data.js"></script>
+      </section>
+      <section id="todo">
+        <script src="./js/firebase.js"></script>
+        <form>
+          <input type="text" id="todo-title" placeholder="Task"></input>
+          <input type="text" id="todo-notes" placeholder="Notes"></input>
+          <input type="date" id="todo-date"></input>
+          <input type="time" id="todo-time"></input>
+          <select id="todo-lists">
+            <option value="personal">Personal</option>
+            <option value="school">School</option>
+            <option value="hobby">Hobby</option>
+          </select>
+          <button id="todo-add" onclick="(e)=>e.preventDefault()">Add</button>
+          <button type="reset">lol jk</button>
+        </form>
+        <script src="./js/todos.js"></script>
       </section>
     </div>
   </body>

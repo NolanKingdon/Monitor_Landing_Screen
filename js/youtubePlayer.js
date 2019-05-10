@@ -26,9 +26,9 @@ submitButton.addEventListener("click", () => {
 function execute(input) {
   console.log("input: ", input);
   return gapi.client.youtube.search.list({
-    "part": "snippet",
+    "part"      : "snippet",
     "maxResults": 10,
-    "q": input,
+    "q"         : input,
   })
       .then(function(response) {
               // Handle the results here (response.result has the parsed body).
@@ -37,13 +37,13 @@ function execute(input) {
               let responseVids = [];
               for(let i=0; i< response.result.items.length; i++){
                 responseVids.push({
-                  id:       response.result.items[i].id.videoId,
+                  type:     response.result.items[i].id.kind,
+                  id:       response.result.items[i].id.videoId ? response.result.items[i].id.videoId : response.result.items[i].id.playlistId,
                   title:    response.result.items[i].snippet.title,
                   thumbURL: response.result.items[i].snippet.thumbnails.medium.url,
                   link:     "https://www.youtube.com/watch?v=" + response.result.items[i].id.videoId
                 })
               }
-
               displayVideos(responseVids);
 
             },
@@ -62,7 +62,15 @@ function displayVideos(videoList){//Displaying Search results on dash
     vidContainer.className = "yt-search-result-item";
 
     vidContainer.addEventListener("click", () => {
-      player.loadVideoById(videoList[i].id, "large");
+      //Distinguishing between solo video and playlist
+      if(videoList[i].type === "youtube#video"){
+        player.loadVideoById(videoList[i].id, "large");
+      } else if(videoList[i].type === "youtube#playlist"){
+        player.cuePlaylist({
+          listType: "playlist",
+          list: videoList[i].id,
+        });
+      }
       //Below will auto-close search results. Given costly nature of searching, let's leave this out
       // resultContainer.style.display = "none";
 
@@ -100,6 +108,14 @@ gapi.load("client");
 let openPage = false;
 
 
+//Loading our initial videos
+const initialVids = [
+  {type: "youtube#video", id: "hHW1oY26kxQ", title: "lofi hip hop radio - beats to relax/study to", thumbURL: "https://i.ytimg.com/vi/hHW1oY26kxQ/mqdefault_live.jpg", link: "https://www.youtube.com/watch?v=hHW1oY26kxQ"},
+  {type: "youtube#video", id: "SmbdY5FpRwA", title: "lofi hip hop radio - beats to sleep/chill to", thumbURL: "https://i.ytimg.com/vi/SmbdY5FpRwA/mqdefault_live.jpg", link: "https://www.youtube.com/watch?v=SmbdY5FpRwA"},
+  {type: "youtube#video", id: "zOPn5meO3lE", title: "breakfast. [jazz hop / lofi / chill mix]", thumbURL: "https://i.ytimg.com/vi/zOPn5meO3lE/mqdefault.jpg", link: "https://www.youtube.com/watch?v=zOPn5meO3lE"},
+];
+
+displayVideos(initialVids);
 
 // TESTING -- UNCOMMENT EVERYTHING ELSE LATER
 // let responseVids = [

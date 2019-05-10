@@ -99,7 +99,7 @@ body {
  }
 
  #youtube-body {
-   min-height: 45vh;
+   min-height: 39vh;
    max-width: 576px; /*This appears to be the max width for a third of my screen*/
    overflow: hidden;
    background-color: rgba(0,0,0,0.3);
@@ -453,4 +453,9 @@ body {
 
   .todo-section-header p{
     display: inline;
+  }
+
+/* For the first load - You don't want to have the tasks showing */
+  #todo-personal-list, #todo-hobby-list, #todo-school-list {
+    display: none;
   }

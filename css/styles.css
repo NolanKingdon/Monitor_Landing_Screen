@@ -363,10 +363,19 @@ body {
 
  #todo {
    height: 50vh;
-   background-color: rgba(0,0,0,0.3);
+   /* background-color: rgba(0,0,0,0.4); */
    display: flex;
    flex-direction: column;
    justify-content: space-between;
+ }
+
+ #todo-section-title {
+   font-family: 'Roboto Mono', monospace;
+   background-color: rgba(0,0,0,0.8);
+   width: 100%;
+   color: white;
+   text-align: center;
+   letter-spacing: 20px;
  }
 
   #todo-list {
@@ -396,15 +405,50 @@ body {
   }
 
   #todo-form {
-
+    /* display: none; */
+    /* TEMP */
   }
 
   .todo-section {
+    font-family: 'Roboto Mono', monospace;
     color: white;
+    user-select: none;
   }
 
   .todo-section-header {
+    background-color: rgba(0,0,0,0.7);
+    padding: 5px;
+  }
+
+  .todo-section-header:hover {
+    cursor: pointer;
+  }
+
+  .todo-section-list {
+    margin-left: 15px;
+    background-color: rgba(125, 125, 125, 0.88);
+  }
+
+  .todo-list-details {
+    margin-left: 15px;
+  }
+
+  .todo-list-item h2 {
+    font-size: 10pt;
+  }
+
+  /* .todo-list-item:nth-child(even){
     background-color: rgba(0,0,0,0.2);
+  }
+
+  .todo-list-item:nth-child(odd){
+    background-color: rgba(0,0,0,0.4);
+  } */
+
+  .todo-section-active {
+    border: 1px solid white;
+    border-radius: 90px;
+    padding: 0px 5px;
   }
 
   .todo-section-header p{

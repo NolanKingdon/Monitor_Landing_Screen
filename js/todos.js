@@ -50,7 +50,7 @@ function handleTaskAdd(){
   let title = document.getElementById("todo-title").value;
   let notes = document.getElementById("todo-notes").value;
   let date  = document.getElementById("todo-date").value;
-  let time  = document.getElementById("todo-time").value;
+  let time  = "undefined" //document.getElementById("todo-time").value;
   let list  = document.getElementById("todo-lists").value;
 
   let metrics = {};
@@ -67,12 +67,12 @@ function handleTaskAdd(){
     () => {
       //Incrementing our open task number
       metrics.openNo = metrics.openNo + 1;
-      //Checking if we have a new closest due date
-      if(date < metrics.nextDue || !metrics.nextDue){
-        if(date !== ""){
-          metrics.nextDue = date;
-        }
-      }
+      //Checking if we have a new closest due date -- TAKEN OUT FOR NOW -- NEED A BETTER SYSTEM FIRST
+      // if(date < metrics.nextDue || !metrics.nextDue){
+      //   if(date !== ""){
+      //     metrics.nextDue = date;
+      //   }
+      // }
     }
   )
   .then(//Writing Metrics back
@@ -142,22 +142,55 @@ function handleTaskRemove(key, list, type, todoInfo){
 }
 //IF removed task was next task in metrics - Gotta find a new one
 
-function deleteTask(key, list){
+function deleteTask(list, key){
+  //Write to completed here first -- TODO ---------------------------------------------------
+  //  Maybe set reference to below (list + key) and copy it to the completed tree and THEN set null
+  //Deleting from open tasks
   db.ref('openTasks/' + list + "/" + key).set(null);
+  //Deleting our domNode
+  let domNode = document.getElementById(key + "::" + list);
+  domNode.remove();
 }
 
-function completeTask(list, todoInfo){
+function completeTask(list, key){
   //Update metrics as well
+  let metrics = {};
+  let postDate = new Date(); //For post Date
+  postDate = postDate.toString();
+
+  db.ref("lists/" + list + "/").once('value')//Reading our current list once to get metrics
+  .then(//Reading Current Metrics
+    (data) => {
+      metrics = data.val();
+    }
+  )
+  .then(//Updating Metrics
+    () => {
+      //Incrementing our open task number
+      metrics.openNo = metrics.openNo - 1;
+      metrics.completedNo = metrics.completedNo + 1;
+    }
+  )
+  .then(//Writing Metrics back
+    () => {
+      db.ref("lists/" + list + "/").set(metrics);
+      //Increment the completed metrics here too -- TODO ------------------------------------
+    }
+  )
+  .then(//Firing The add task for the actual todos
+    () => {deleteTask(list, key);}
+  )
 }
 
 function addToDOM(title, notes, date, postDate, time, list){
   let todoMarkup = `
     <h2>${title}</h2>
     <p class="todo-list-item-due">${date}</p>
-    <p class="todo-list-item-due-time">${time}</p>
+    <!--<p class="todo-list-item-due-time">${time}</p>-->
+    <button class="btn" onclick="completeTask('${list}', '${activeKey}')">Done</button>
     <div class="todo-list-details">
       <p>${notes}</p>
-      <p>${postDate}</p>
+     <!--<p>${postDate}</p>-->
     </div>`;
   let newItem = document.createElement("div");
   newItem.className = "todo-list-item";
@@ -214,8 +247,6 @@ function watchDB(){
       for(let i=0; i < snapOpenPersonal - personalDOM; i++){
         //Looping until caught up (Solves first load and desync issues)
         let currentSnapChild = snap.val().personal[personalKeys[i+personalDOM]];
-        console.log(i+personalDOM);
-        console.log(personalKeys);
         activeKey = personalKeys[i+personalDOM];
         addToDOM(currentSnapChild.title,
                   currentSnapChild.notes,
@@ -228,7 +259,6 @@ function watchDB(){
       currentOpenPersonal = snapOpenPersonal;
     }
     if(hobbyDOM < snapOpenHobby){
-
       let hobbyKeys = Object.keys(snap.val().hobby);
       for(let i=0; i < snapOpenHobby - hobbyDOM; i++){
         //Looping until caught up (Solves first load and desync issues)
@@ -258,6 +288,18 @@ function watchDB(){
     }
 
   })
+}
+//For hiding the list items of each header
+function hideList(listType){
+  let list = document.getElementById("todo-" + listType + "-list");
+  let head = document.getElementById("todo-" + listType + "-head");
+  if(list.style.display === "none"){
+    list.style.display = "block";
+    head.innerHTML = "-";
+  } else {
+    list.style.display = "none";
+    head.innerHTML = "+";
+  }
 }
 
 watchDB();

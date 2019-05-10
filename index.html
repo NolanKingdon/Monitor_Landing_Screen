@@ -15,9 +15,11 @@
         <section id="todo">
           <script src="./js/firebase.js"></script>
           <div id="todo-list">
+            <h2 id="todo-section-title">To Do</h2>
             <div class="todo-section">
-              <div class="todo-section-header">
-                <p class="todo-section-label">Personal</p>
+              <div class="todo-section-header" onclick="hideList('personal')">
+                <p id="todo-personal-head">+</p>
+                <p class="todo-section-label todo-closed">Personal</p>
                 <p class="todo-section-active" id="todo-personal-open">0</p>
                 <p class="todo-section-next" id="todo-personal-next"></p>
               </div>
@@ -25,8 +27,9 @@
               </div>
             </div>
             <div class="todo-section">
-              <div class="todo-section-header">
-                <p class="todo-section-label">Hobby</p>
+              <div class="todo-section-header" onclick="hideList('hobby')">
+                <p id="todo-hobby-head">+</p>
+                <p class="todo-section-label todo-closed">Hobby</p>
                 <p class="todo-section-active" id="todo-hobby-open">0</p>
                 <p class="todo-section-next" id="todo-hobby-next"></p>
               </div>
@@ -34,10 +37,11 @@
               </div>
             </div>
             <div class="todo-section">
-              <div class="todo-section-header">
-                <p class="todo-section-label">School</p>
+              <div class="todo-section-header" onclick="hideList('school')">
+                <p id="todo-school-head">+</p>
+                <p class="todo-section-label todo-closed" >School</p>
                 <p class="todo-section-active" id="todo-school-open">0</p>
-                <p class="todo-section-next" id="todo-hobby-next"></p>
+                <p class="todo-section-next" id="todo-school-next"></p>
               </div>
               <div class="todo-section-list" id="todo-school-list">
               </div>
@@ -47,7 +51,7 @@
             <input type="text" id="todo-title" placeholder="Task"></input>
             <input type="text" id="todo-notes" placeholder="Notes"></input>
             <input type="date" id="todo-date"></input>
-            <input type="time" id="todo-time"></input>
+            <!-- <input type="time" id="todo-time"></input> -->
             <select id="todo-lists">
               <option value="personal">Personal</option>
               <option value="school">School</option>

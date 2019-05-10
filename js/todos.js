@@ -89,8 +89,8 @@ function addTask(title, notes, date, postDate, time, list){
     title,
     notes,
     postDate: postDate,
-    dueDate: date,
-    dueTime: time,
+    dueDate : date,
+    dueTime : time,
   }).key;
 
   activeKey = newKey;

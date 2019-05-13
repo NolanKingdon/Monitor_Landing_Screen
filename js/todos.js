@@ -47,6 +47,7 @@ function stopYourNonsense(e){
 }
 
 function handleTaskAdd(){
+  toggleAddInterface();//Hiding the add interface when we're done
   let title = document.getElementById("todo-title").value;
   let notes = document.getElementById("todo-notes").value;
   let date  = document.getElementById("todo-date").value;
@@ -187,7 +188,7 @@ function addToDOM(title, notes, date, postDate, time, list){
     <h2>${title}</h2>
     <p class="todo-list-item-due">${date}</p>
     <!--<p class="todo-list-item-due-time">${time}</p>-->
-    <button class="btn" onclick="completeTask('${list}', '${activeKey}')">Done</button>
+    <button class="btn todo-list-item-btn" onclick="completeTask('${list}', '${activeKey}')">Done</button>
     <div class="todo-list-details">
       <p>${notes}</p>
      <!--<p>${postDate}</p>-->
@@ -196,7 +197,7 @@ function addToDOM(title, notes, date, postDate, time, list){
   newItem.className = "todo-list-item";
   newItem.id        = activeKey + "::" + list;
   newItem.innerHTML = todoMarkup;
-
+  newItem.onclick   = (e) => {toggleItemDetails(e)}
   document.getElementById("todo-" + list + "-list").appendChild(newItem);
 }
 
@@ -293,12 +294,38 @@ function watchDB(){
 function hideList(listType){
   let list = document.getElementById("todo-" + listType + "-list");
   let head = document.getElementById("todo-" + listType + "-head");
-  if(list.style.display === "none"){
+  if(list.style.display === "none" || list.style.display === ""){
     list.style.display = "block";
     head.innerHTML = "-";
-  } else {
+  } else if(list.style.display === "block"){
     list.style.display = "none";
     head.innerHTML = "+";
+  }
+}
+//Hides ability to add tasks
+function toggleAddInterface(){
+  if(todoForm.style.display === "none" || todoForm.style.display === ""){
+    todoForm.style.display = "block";
+  } else {
+    todoForm.style.display = "none";
+  }
+}
+
+function toggleItemDetails(e){
+  //Checking the path and displaying/hiding the notes dependant
+  //NOTE - This will also fire when clicking on the "Done" button.
+  //TODO - fix this later
+  //I am so sorry, future self. It wouldn't work if I assigned these to variables
+  if(
+    e.path[1].childNodes[9].style.display === "" ||
+    e.path[1].childNodes[9].style.display === "none"
+    )
+  {
+    e.path[1].childNodes[9].style.display = "block";
+  }
+  else
+  {
+    e.path[1].childNodes[9].style.display = "none";
   }
 }
 

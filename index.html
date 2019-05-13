@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Hex Clock</title>
     <link rel = "stylesheet" href = "css/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-database.js"></script>
@@ -14,8 +14,9 @@
       <div class="vertical-flex">
         <section id="todo">
           <script src="./js/firebase.js"></script>
+          <h2 id="todo-section-title">-TODO-</h2>
+          <a href="#" id="todo-display-add" onclick="toggleAddInterface()"><h2>+</h2></a>
           <div id="todo-list">
-            <h2 id="todo-section-title">To Do</h2>
             <div class="todo-section">
               <div class="todo-section-header" onclick="hideList('personal')">
                 <p id="todo-personal-head">+</p>
@@ -69,7 +70,7 @@
           <!-- TODO Switch to CSS marquee for more control -->
           <marquee id="yt-title-scroll">Test text</marquee>
           <div id="yt-control-flex">
-            <button id= "yt-play-toggle" class="btn" onclick="togglePlaying()">Play</button>
+            <button id= "yt-play-toggle" class="btn" onclick="togglePlaying()">Pause</button>
             <button id= "yt-skip" class="btn" onclick="nextVid()">Next</button>
             <input id = "youtube-input" type = "text"/>
             <button id = "yt-submit" class="btn">Submit</button>

@@ -23,6 +23,15 @@ submitButton.addEventListener("click", () => {
   loadClient(inputValue);
 });
 
+let optionsBtn  = document.getElementById('yt-options');
+optionsBtn.addEventListener("click", ()=>{
+  if(missedVideo.style.display === "none" || missedVideo.style.display === ""){
+    missedVideo.style.display = "block";
+  } else {
+    missedVideo.style.display = "none";
+  }
+});
+
 function execute(input) {
   console.log("input: ", input);
   return gapi.client.youtube.search.list({
@@ -65,7 +74,11 @@ function displayVideos(videoList){//Displaying Search results on dash
       //Distinguishing between solo video and playlist
       if(videoList[i].type === "youtube#video"){
         player.loadVideoById(videoList[i].id, "large");
+        playing = false;
+        playBtn.innerHTML = "Play";
       } else if(videoList[i].type === "youtube#playlist"){
+        playing = false;
+        playBtn.innerHTML = "Play";
         player.cuePlaylist({
           listType: "playlist",
           list: videoList[i].id,
@@ -96,7 +109,6 @@ function displayVideos(videoList){//Displaying Search results on dash
 
     vidContainer.appendChild(vidTitle);
     vidContainer.appendChild(thumbnail);
-    console.log("Should work");
     resultContainer.appendChild(vidContainer);
   }
 
@@ -110,6 +122,9 @@ let openPage = false;
 
 //Loading our initial videos
 const initialVids = [
+  {type: "youtube#playlist", id: "PL0KqfOQxyR-OtZuIHKjkDeIrrPeDI7C0a", title: "Upbeat", thumbURL: "https://i.ytimg.com/vi/KVt2Qweiydg/mqdefault.jpg", link: "https://www.youtube.com/playlist?list=PL0KqfOQxyR-OtZuIHKjkDeIrrPeDI7C0a"},
+  {type: "youtube#playlist", id: "PL0KqfOQxyR-PvINHO2yS8BoytoGoY21my", title: "Relaxed", thumbURL: "https://i.ytimg.com/vi/6zvIxD4FUTA/mqdefault.jpg", link: "https://www.youtube.com/playlist?list=PL0KqfOQxyR-PvINHO2yS8BoytoGoY21my"},
+  {type: "youtube#playlist", id: "PL0KqfOQxyR-MyhQmlz4Jj6qbnc-Kue7J8", title: "Trance", thumbURL: "https://i.ytimg.com/vi/IVvpfQjR6jQ/mqdefault.jpg", link: "https://www.youtube.com/playlist?list=PL0KqfOQxyR-MyhQmlz4Jj6qbnc-Kue7J8"},
   {type: "youtube#video", id: "hHW1oY26kxQ", title: "lofi hip hop radio - beats to relax/study to", thumbURL: "https://i.ytimg.com/vi/hHW1oY26kxQ/mqdefault_live.jpg", link: "https://www.youtube.com/watch?v=hHW1oY26kxQ"},
   {type: "youtube#video", id: "SmbdY5FpRwA", title: "lofi hip hop radio - beats to sleep/chill to", thumbURL: "https://i.ytimg.com/vi/SmbdY5FpRwA/mqdefault_live.jpg", link: "https://www.youtube.com/watch?v=SmbdY5FpRwA"},
   {type: "youtube#video", id: "zOPn5meO3lE", title: "breakfast. [jazz hop / lofi / chill mix]", thumbURL: "https://i.ytimg.com/vi/zOPn5meO3lE/mqdefault.jpg", link: "https://www.youtube.com/watch?v=zOPn5meO3lE"},

@@ -35,13 +35,13 @@ function createWindow(){
   }));
 
   //To open dev tools (Dev only)
-  win.webContents.openDevTools();
+  //win.webContents.openDevTools();
   //Handling close
   win.on("closed", () => { win = null });
 }
 
 //Running the build when ready
-app.on("ready", createWindow)
+app.on("ready", createWindow);
 //Quit
 
 app.on("window-all-closed", () => {

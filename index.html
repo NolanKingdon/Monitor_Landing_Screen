@@ -70,7 +70,7 @@
           <!-- TODO Switch to CSS marquee for more control -->
           <marquee id="yt-title-scroll">Test text</marquee>
           <div id="yt-control-flex">
-            <button id= "yt-play-toggle" class="btn" onclick="togglePlaying()">Pause</button>
+            <button id= "yt-play-toggle" class="btn" onclick="togglePlaying()">Play</button>
             <button id= "yt-skip" class="btn" onclick="nextVid()">Next</button>
             <input id = "youtube-input" type = "text"/>
             <button id = "yt-submit" class="btn">Submit</button>
@@ -81,7 +81,9 @@
           <div id="yt-search-results">
 
           </div>
-
+          <div id="yt-missed-video-debug">
+            <ul id="yt-missed-list"></ul>
+          </div>
           <script>
             //TODO - put this into a seperate file for simplicity sake
             const windowWidth = window.innerWidth/2;
@@ -91,6 +93,8 @@
             let marqueeText = document.getElementById("yt-title-scroll");
             let playing = false;
             //TODO - play/pause icons
+            let missedVideo = document.getElementById("yt-missed-video-debug");
+            let missedVideoList = document.getElementById("yt-missed-list");
 
             var tag = document.createElement('script');
 
@@ -143,6 +147,9 @@
               }
             }
             function onPlayerError(event){
+              let missedVideo = document.createElement("li");
+              missedVideo.innerHTML = player.getVideoData().title;
+              missedVideoList.appendChild(missedVideo);
               player.nextVideo();
               playing = true;
             }
@@ -174,17 +181,7 @@
                 list: "PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG"
               })
             }
-            //Handling Video changes
-            // let submitButton = document.getElementById("submit-button");
-            // submitButton.addEventListener("click", () => {
-            //   let input = document.getElementById("youtube-input");
-            //   let inputValue = input.value;
-            //
-            //   player.loadPlaylist({
-            //     list: inputValue,
-            //     listType: "search",
-            //   });
-            // });
+
           </script>
           <!-- CUT/PASTE FEST -->
           <script src="https://apis.google.com/js/api.js"></script>

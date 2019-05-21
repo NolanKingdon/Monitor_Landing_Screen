@@ -324,6 +324,9 @@ body {
 #processor-speed {
   grid-area: auto / 5 / auto / 6;
 }
+#cpu-graph {
+  grid-area: auto / 1 / auto / 7;
+}
 
 .sys-title-col {
   font-weight: 800;
@@ -362,6 +365,7 @@ body {
   height: .75em;
   background-color: RGBA(255,255,255,0.7);
 }
+
 
 /*
 ============================

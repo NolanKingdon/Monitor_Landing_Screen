@@ -49,17 +49,17 @@
             </div>
           </div>
           <form id="todo-form">
-            <input type="text" id="todo-title" placeholder="Task"></input>
-            <input type="text" id="todo-notes" placeholder="Notes"></input>
-            <input type="date" id="todo-date"></input>
-            <!-- <input type="time" id="todo-time"></input> -->
-            <select id="todo-lists">
+            <input class="input" type="text" id="todo-title" placeholder="Task"></input>
+            <select class="input" id="todo-list-types">
               <option value="personal">Personal</option>
               <option value="school">School</option>
               <option value="hobby">Hobby</option>
             </select>
-            <button id="todo-add">Add</button>
-            <button type="reset">lol jk</button>
+            <button class="btn" type="reset">lol jk</button>
+            <textarea class="input" id="todo-notes" placeholder="Notes"></textarea>
+            <input class="input" type="date" id="todo-date"></input>
+            <!-- <input type="time" id="todo-time"></input> -->
+            <button class="btn" id="todo-add">Add</button>
           </form>
           <script src="./js/todos.js"></script>
         </section>
@@ -72,7 +72,7 @@
           <div id="yt-control-flex">
             <button id= "yt-play-toggle" class="btn" onclick="togglePlaying()">Play</button>
             <button id= "yt-skip" class="btn" onclick="nextVid()">Next</button>
-            <input id = "youtube-input" type = "text"/>
+            <input class="input" type = "text"/>
             <button id = "yt-submit" class="btn">Submit</button>
             <button id = "yt-options" class="btn">...</button>
 

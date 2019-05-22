@@ -52,7 +52,7 @@ function handleTaskAdd(){
   let notes = document.getElementById("todo-notes").value;
   let date  = document.getElementById("todo-date").value;
   let time  = "undefined" //document.getElementById("todo-time").value;
-  let list  = document.getElementById("todo-lists").value;
+  let list  = document.getElementById("todo-list-types").value;
 
   let metrics = {};
   let postDate = new Date(); //For post Date
@@ -305,7 +305,7 @@ function hideList(listType){
 //Hides ability to add tasks
 function toggleAddInterface(){
   if(todoForm.style.display === "none" || todoForm.style.display === ""){
-    todoForm.style.display = "block";
+    todoForm.style.display = "grid";
   } else {
     todoForm.style.display = "none";
   }

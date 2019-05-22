@@ -127,14 +127,18 @@ body {
   display: inline-block;
 }
 
-#youtube-input {
+.input {
   background-color: #5C5B5B;
-  width: 85%;
+  /* width: 85%; */
   border: none;
   padding: 5px;
   margin: 0;
   color: white;
   flex-grow: 4;
+}
+
+.input::placeholder {
+  color: white;
 }
 
 .btn {
@@ -379,7 +383,7 @@ body {
    position: relative;
    display: flex;
    flex-direction: column;
-   justify-content: space-between;
+   /* justify-content: space-between; */
  }
 
  #todo-section-title {
@@ -395,15 +399,16 @@ body {
                     rgba(0,0,0,0.8),
                     rgba(0,0,0,0)
     ); */
-   width: 100%;
+   width: 98.9%;
    color: white;
    text-align: center;
    letter-spacing: 25px;
+   margin-right: 5px;
  }
 
   #todo-list {
     margin-top: 1.8em;
-    height: 45vh;
+    max-height: 45vh;
     overflow-y: scroll;
   }
 
@@ -431,6 +436,18 @@ body {
 
   #todo-form {
     display: none;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 1px;
+    margin-right: 5px;
+  }
+
+  #todo-title {
+    grid-area: auto / 1 / auto / 7;
+  }
+
+  #todo-notes {
+    grid-area: auto / 1 / auto / 7;
   }
 
   .todo-section {
@@ -534,5 +551,5 @@ body {
     font-weight: 1000;
     position: absolute;
     top: 0;
-    right: 5px;
+    right: 10px;
   }

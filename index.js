@@ -6,6 +6,8 @@ require('./js/node/express-server.js');
 require('./js/node/sys-info.js');
 //launchpad
 require("./js/node/commandExec.js");
+//DEV RELOADS
+require("electron-reload")(__dirname);
 //Electron Window setup
 let win;
 

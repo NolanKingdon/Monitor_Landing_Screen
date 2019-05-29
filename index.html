@@ -61,6 +61,18 @@
             <!-- <input type="time" id="todo-time"></input> -->
             <button class="btn" id="todo-add">Add</button>
           </form>
+          <form id="todo-edit-form">
+            <input class="input" type="text" id="todo-title-edit" placeholder="Task"></input>
+            <select class="input" id="todo-list-types-edit">
+              <option value="personal">Personal</option>
+              <option value="school">School</option>
+              <option value="hobby">Hobby</option>
+            </select>
+            <button class="btn" type="reset" onclick="toggleEditInterface()">lol jk</button>
+            <textarea class="input" id="todo-notes-edit" placeholder="Notes"></textarea>
+            <input class="input" type="date" id="todo-date-edit"></input>
+            <button class="btn" id="todo-edit">Edit</button>
+          </form>
           <script src="./js/todos.js"></script>
         </section>
         <section id="launchpad">

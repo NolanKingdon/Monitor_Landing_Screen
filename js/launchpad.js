@@ -23,7 +23,7 @@ function createIconElement(icon){
   iconElem.addEventListener("mouseout", (e) => {
     e.target.style.transition = "0.3s";
     e.target.style.height = "55px";
-    e.target.style.transform = "translate(0px, 0px)";
+    e.target.style.transform = "translate(0px, -5px)";
   });
 
   let img = document.createElement("img");

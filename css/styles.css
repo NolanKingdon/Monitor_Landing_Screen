@@ -434,7 +434,7 @@ body {
     background: #555;
   }
 
-  #todo-form {
+  #todo-form, #todo-edit-form{
     display: none;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: auto;
@@ -442,11 +442,11 @@ body {
     margin-right: 5px;
   }
 
-  #todo-title {
+  #todo-title, #todo-title-edit {
     grid-area: auto / 1 / auto / 7;
   }
 
-  #todo-notes {
+  #todo-notes, #todo-notes-edit {
     grid-area: auto / 1 / auto / 7;
   }
 
@@ -495,10 +495,22 @@ body {
   }
 
   .todo-list-item-btn {
-    padding: 0px 5px;
     width: auto;
     grid-area: 1/6/1/7;
+    text-align: right;
+  }
 
+  .todo-btn {
+    display: inline-block;
+    padding: 0px 5px 0px 5px;
+
+    width: 30%;
+    height: 100%;
+  }
+
+  .todo-btn img {
+    width: 100%;
+    height: auto;
   }
 
   .todo-list-details {
@@ -569,6 +581,7 @@ body {
 .launchpad-icon {
   /* background-color: rgba(0,0,0,0.2); */
   height: 59px;
+
 }
 
 .launchpad-icon:hover{

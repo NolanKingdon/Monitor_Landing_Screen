@@ -1,7 +1,11 @@
 const todoForm = document.getElementById("todo-form");
 const submitBtn = document.getElementById('todo-add');
+const todoEditForm = document.getElementById("todo-edit-form");
+const submitEdit = document.getElementById("todo-edit");
 submitBtn.addEventListener("click", stopYourNonsense);
 submitBtn.addEventListener("click", handleTaskAdd);
+submitEdit.addEventListener("click", stopYourNonsense);
+submitEdit.addEventListener("click", sendEdit);
 let currentOpenPersonal = 0;
 let currentOpenHobby    = 0;
 let currentOpenSchool   = 0;
@@ -9,37 +13,37 @@ let activeKey = "";
 
 
 //"Test Title", "Test Notes", "01/01/2001", "1:00PM", "personal"
-function resetDatabase(){ // For testing -- Call in console.
-  //Reset Metrics
-  db.ref('lists/').set({
-    completed: {
-      completedTotal: 0,
-      lastCompleted: 0
-    },
-    hobby: {
-      completedNo: 0,
-      // nextDue: 0,
-      openNo: 0
-    },
-    personal: {
-      completedNo: 0,
-      // nextDue: 0,
-      openNo: 0
-    },
-    school: {
-      completedNo: 0,
-      // nextDue: 0,
-      openNo: 0
-    }
-  })
-  //Reset Open Tasks
-  db.ref('openTasks/').set({
-    school: [],
-    hobby: [],
-    personal: [],
-    completed: []
-  })
-}
+// function resetDatabase(){ // For testing -- Call in console.
+//   //Reset Metrics
+//   db.ref('lists/').set({
+//     completed: {
+//       completedTotal: 0,
+//       lastCompleted: 0
+//     },
+//     hobby: {
+//       completedNo: 0,
+//       // nextDue: 0,
+//       openNo: 0
+//     },
+//     personal: {
+//       completedNo: 0,
+//       // nextDue: 0,
+//       openNo: 0
+//     },
+//     school: {
+//       completedNo: 0,
+//       // nextDue: 0,
+//       openNo: 0
+//     }
+//   })
+//   //Reset Open Tasks
+//   db.ref('openTasks/').set({
+//     school: [],
+//     hobby: [],
+//     personal: [],
+//     completed: []
+//   })
+// }
 
 function stopYourNonsense(e){
   //go home defaults, you're drunk.
@@ -188,7 +192,10 @@ function addToDOM(title, notes, date, postDate, time, list){
     <h2>${title}</h2>
     <p class="todo-list-item-due">${date}</p>
     <!--<p class="todo-list-item-due-time">${time}</p>-->
-    <button class="btn todo-list-item-btn" onclick="completeTask('${list}', '${activeKey}')">Done</button>
+    <div class="todo-list-item-btn">
+    <button class="btn todo-btn" onclick="completeTask('${list}', '${activeKey}')"><img src="./images/icons/todo/white-check-mark-hi.png"/></button>
+    <button class="btn todo-btn" onclick="editTask('${list}', '${activeKey}')"><img src="./images/icons/todo/white-pencil-icon.png"/></button>
+    </div>
     <div class="todo-list-details">
       <p>${notes}</p>
      <!--<p>${postDate}</p>-->
@@ -311,6 +318,14 @@ function toggleAddInterface(){
   }
 }
 
+function toggleEditInterface(){
+  if(todoEditForm.style.display === "none" || todoEditForm.style.display === ""){
+    todoEditForm.style.display = "grid";
+  } else {
+    todoEditForm.style.display = "none";
+  }
+}
+
 function toggleItemDetails(e){
   //Checking the path and displaying/hiding the notes dependant
   //NOTE - This will also fire when clicking on the "Done" button.
@@ -327,6 +342,22 @@ function toggleItemDetails(e){
   {
     e.path[1].childNodes[9].style.display = "none";
   }
+}
+
+function editTask(list, activeKey){
+  console.log(todoEditForm.childNodes);
+  //Acces firebase, get current info for placeholder values below
+
+  todoEditForm.childNodes[1].value = "edit placeholder";
+  todoEditForm.childNodes[3].value = "hobby";
+  todoEditForm.childNodes[7].value = "Edit placeholdah";
+  todoEditForm.childNodes[9].valueAsNumber = 01012001;
+  toggleEditInterface();
+}
+
+function sendEdit(){
+  console.log("sending edit");
+  toggleEditInterface();
 }
 
 watchDB();

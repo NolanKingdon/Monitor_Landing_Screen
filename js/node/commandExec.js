@@ -4,7 +4,7 @@ const commands = {
   "steam":'"D:\\Program Files (x86)\\Steam\\Steam.exe"',
   "notepad":"C:\\Windows\\System32\\notepad.exe",
   "folder":"start ..\\..\\..\\..\\",
-  "intellij":'"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\JetBrains"',
+  "intellij":'"C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.3.4\\bin\\idea64.exe"',
   "power":"cd"//"shutdown /s",
 }
 

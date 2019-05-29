@@ -4,7 +4,8 @@ const url = require("url");
 //Server vars and setup
 require('./js/node/express-server.js');
 require('./js/node/sys-info.js');
-//require('./js/node/tasks/tasks.js');
+//launchpad
+require("./js/node/commandExec.js");
 //Electron Window setup
 let win;
 

@@ -19,7 +19,7 @@ function createIconElement(icon){
     // *** Adding our questionmark for the confirm button
     let pImg = document.createElement("img");
     pImg.className = "launchpad-icon-img";
-    pImg.src = `./images/icons/launchpad/questionmark.png`;
+    pImg.src = `./images/icons/launchpad/questionmarkv2.png`;
 
     //*** Appending the items together
     shutDownConfirm.appendChild(pImg);

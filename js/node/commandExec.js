@@ -5,7 +5,7 @@ const commands = {
   "notepad":"C:\\Windows\\System32\\notepad.exe",
   "folder":"start ..\\..\\..\\..\\",
   "intellij":'"C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.3.4\\bin\\idea64.exe"',
-  "power":"cd"//"shutdown /s",
+  "power": "shutdown /s",
 }
 
 module.exports = commands;

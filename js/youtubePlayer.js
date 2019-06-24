@@ -18,7 +18,7 @@ function loadClient(inputValue) {
 let submitButton = document.getElementById("yt-submit");
 let inputValue;
 submitButton.addEventListener("click", () => {
-  let input = document.getElementById("youtube-input");
+  let input = document.getElementById("yt-input");
   let inputValue = input.value;
   loadClient(inputValue);
 });

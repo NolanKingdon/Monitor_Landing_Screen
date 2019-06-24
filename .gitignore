@@ -3,3 +3,4 @@ node_modules
 
 #We still have all those keys in here.
 src/modules/youtube/youtubePlayer.js
+src/modules/todo/backend/firebase.js

@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <title>Hex Clock</title>
     <link rel = "stylesheet" href = "css/styles.css">
+    <!--
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-database.js"></script>-->
+    <script src="./moduleHandler.js"></script>
   </head>
   <body>
-    <div class="horizontal-flex">
+    <!--<div class="horizontal-flex">
       <div class="vertical-flex">
         <section id="todo">
           <script src="./js/firebase.js"></script>
@@ -57,9 +59,9 @@
             </select>
             <button class="btn" type="reset">lol jk</button>
             <textarea class="input" id="todo-notes" placeholder="Notes"></textarea>
-            <input class="input" type="date" id="todo-date"></input>
+            <input class="input" type="date" id="todo-date"></input>-->
             <!-- <input type="time" id="todo-time"></input> -->
-            <button class="btn" id="todo-add">Add</button>
+            <!--<button class="btn" id="todo-add">Add</button>
           </form>
           <form id="todo-edit-form">
             <input class="input" type="text" id="todo-title-edit" placeholder="Task"></input>
@@ -81,9 +83,9 @@
       </div>
       <div class="vertical-flex">
         <section id = "youtube-body">
-          <div id="player"></div>
+          <div id="player"></div>-->
           <!-- TODO Switch to CSS marquee for more control -->
-          <marquee id="yt-title-scroll">Test text</marquee>
+          <!--<marquee id="yt-title-scroll">Test text</marquee>
           <div id="yt-control-flex">
             <button id="yt-play-toggle" class="btn" onclick="togglePlaying()">Play</button>
             <button id="yt-skip" class="btn" onclick="nextVid()">Next</button>
@@ -91,9 +93,9 @@
             <button id="yt-submit" class="btn">Submit</button>
             <button id="yt-options" class="btn">...</button>
 
-          </div>
+          </div>-->
           <!-- TODO Add in a button to search playlists?/display your existing playlist -->
-          <div id="yt-search-results">
+          <!--<div id="yt-search-results">
 
           </div>
           <div id="yt-missed-video-debug">
@@ -197,12 +199,12 @@
               })
             }
 
-          </script>
+          </script>-->
           <!-- CUT/PASTE FEST -->
-          <script src="https://apis.google.com/js/api.js"></script>
-          <script src="./js/youtubePlayer.js"></script>
+          <!--<script src="https://apis.google.com/js/api.js"></script>-->
+          <!--<script src="./js/youtubePlayer.js"></script>-->
           <!-- END CUT/PASTE FEST -->
-        </section>
+        <!--</section>
         <section id = "clock-body">
           <div id = "clock-wrapper">
             <h1 id = "clock"></h1>
@@ -210,21 +212,21 @@
           </div>
         </section>
         <section id="timer">
-          <div id="timer-topline">
+          <div id="timer-topline">-->
             <!-- Increment row -->
-            <button class="timer-controls" onclick="addHour()"><img src="./images/icons/Chevron Up-white.png"/></button>
+            <!--<button class="timer-controls" onclick="addHour()"><img src="./images/icons/Chevron Up-white.png"/></button>
             <button class="timer-controls" onclick="addMinute()"><img src="./images/icons/Chevron Up-white.png"/></button>
             <button class="timer-controls" onclick="addSecond()"><img src="./images/icons/Chevron Up-white.png"/></button>
-            <button class="timer-controls" id="reset-timer" onclick="clearCount()">Reset</button>
+            <button class="timer-controls" id="reset-timer" onclick="clearCount()">Reset</button>-->
             <!-- Timer Face -->
-            <div class="number-container">
+            <!-- <div class="number-container"> -->
               <!--
               number-container is our fixed height box around our number to make sure that we don't have any adverse effects
               from making enough room to scroll
              -->
-              <div id="hours-invisible-scroll">
+              <!-- <div id="hours-invisible-scroll"> -->
                 <!-- Our actual div that scrolls. z-index sits above our hours module. br's give some space to scroll with -->
-                <br/><br/><br/><br/>
+                <!-- <br/><br/><br/><br/>
               </div>
               <p id="timer-hours">00</p>
             </div>
@@ -240,9 +242,9 @@
               </div>
               <p id="timer-seconds">00</p>
             </div>
-            <button class="timer-controls" id="start-timer" onclick="beginCount()">Start</button>
+            <button class="timer-controls" id="start-timer" onclick="beginCount()">Start</button> -->
             <!-- Decrement Row -->
-            <button class="timer-controls" onclick="rmvHour()"><img src="./images/icons/Chevron Down-white.png"/></button>
+            <!-- <button class="timer-controls" onclick="rmvHour()"><img src="./images/icons/Chevron Down-white.png"/></button>
             <button class="timer-controls" onclick="rmvMinute()"><img src="./images/icons/Chevron Down-white.png"/></button>
             <button class="timer-controls" onclick="rmvSecond()"><img src="./images/icons/Chevron Down-white.png"/></button>
             <button class="timer-controls" id="pause-timer" onclick="pauseCount()">Pause</button>
@@ -250,7 +252,7 @@
           <script src="./js/timer.js"></script>
         </section>
         <section id="sys-info">
-          <div id="sys-info-body">
+          <div id="sys-info-body"> -->
             <!--
             Think layout.
 
@@ -260,14 +262,14 @@
             get hardware info
 
            -->
-            <h2 id="sys-header">System Information</h2>
+            <!-- <h2 id="sys-header">System Information</h2> -->
             <!-- CPU Section -->
-            <p id="sys-cpu-head" class="sys-title-col">CPU:</p>
+            <!-- <p id="sys-cpu-head" class="sys-title-col">CPU:</p>
             <p id="sys-cpu-info" class="sys-data-col"></p>
             <p id="processor-speed" class="sys-data-col"></p>
-            <canvas id="cpu-graph" width="450"></canvas>
+            <canvas id="cpu-graph" width="450"></canvas> -->
             <!-- Display Section -->
-            <p class="sys-title-col">Display:</p>
+            <!-- <p class="sys-title-col">Display:</p>
             <p id="gpu" class="sys-data-col"></p>
             <p id="sys-screen" class="sys-data-col"></p>
             <p class="sys-title-col">Drives:</p>
@@ -279,9 +281,9 @@
           <script src="./js/comp-data.js"></script>
         </section>
       </div>
-    </div>
+    </div> -->
   </body>
-  <script>
+  <!-- <script>
     require('./js/hexClock.js');
-  </script>
+  </script> -->
 </html>

@@ -5,15 +5,8 @@ let config = {
   },
   modules: [
     {
-      name: "Test1",
-      location: "",
-      config: {
-        "":"" // Going to have things like keys, customization options, etc.
-      }
-    },
-    {
-      name: "Test2",
-      location: "",
+      name: "Test",
+      location: "", //Which column
       config: {
         "":"" // Going to have things like keys, customization options, etc.
       }

@@ -18,6 +18,7 @@ class Module {
   }
 
   set setDOM(domString){
+    console.log("Setting DOM");
     //returns the DOM template string
     this.DOMString = domString;
   }
@@ -36,7 +37,7 @@ class Module {
   }
 
   createWindow(){
-    console.log("Creating a window");
+    console.log("Creating a window for " + this.config.name);
     //Creates additional windows
   }
 

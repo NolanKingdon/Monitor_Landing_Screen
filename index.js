@@ -15,11 +15,11 @@ function createWindow(){
 
   //creating browser window
   win = new BrowserWindow({
-    alwaysOnTop: false, // ******************* Remove when screen widens
+    alwaysOnTop: false,
     frame: false, //External frame
     width: width*0.5,//Setting to a percent of the screen width
     height: height,//Setting to screen height
-    icon: __dirname + 'src/core/images/clock.png',
+    icon: __dirname + '/src/core/images/clock.png',
     x: -width*0.5,//Offset so we're on the secondary screen
     y: 0,
   });
@@ -27,7 +27,7 @@ function createWindow(){
 
   //loading index.html
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'src/core/index.html'),
+    pathname: path.join(__dirname, '/src/core/index.html'),
     protocol: "file",
     slashes: true,
   }));

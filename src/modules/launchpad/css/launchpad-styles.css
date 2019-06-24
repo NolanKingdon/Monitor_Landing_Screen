@@ -1,0 +1,21 @@
+
+#launchpad {
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+}
+
+.launchpad-icon {
+  /* background-color: rgba(0,0,0,0.2); */
+  height: 59px;
+
+}
+
+.launchpad-icon:hover{
+  cursor: pointer;
+}
+
+.launchpad-icon-img {
+  height: 50px;
+  width: auto;
+}

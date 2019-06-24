@@ -1,0 +1,84 @@
+
+#sys-info {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10pt;
+  color: white;
+  align-content: center;
+}
+
+#sys-info-body {
+  background: rgba(0,0,0,0.3);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 0.5em;
+  align-items: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px 10px 10px 10px;
+}
+
+#sys-header {
+  font-size: 12pt;
+  grid-area: 1/1/1/7;
+  font-weight: 400;
+  text-align: center;
+}
+
+#gpu {
+  grid-area: auto / 1 / auto / 4;
+}
+
+#sys-screen {
+  grid-area: auto / 5 / auto / 6;
+}
+
+#sys-cpu-info {
+  grid-area: 3 / 1 / 4 / 4;
+}
+
+#processor-speed {
+  grid-area: auto / 5 / auto / 6;
+}
+#cpu-graph {
+  grid-area: auto / 1 / auto / 7;
+}
+
+.sys-title-col {
+  font-weight: 800;
+  text-align: left;
+  grid-area: auto / 1 / auto / 7;
+}
+
+.sys-data-col {
+  text-align: right;
+}
+
+#sys-info-drives {
+  grid-area: auto / 1 / auto / 7;
+}
+
+.sys-info-drive-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  align-items: center;
+}
+
+.sys-info-drive-row * {
+  text-align: center;
+}
+
+/*Progress bar styles*/
+
+.sys-info-progress-container {
+  width: 200px;
+  height: 0.75em;
+  border: 1px solid RGBA(255,255,255,0.7);
+}
+
+.sys-info-progress-bar {
+  height: .75em;
+  background-color: RGBA(255,255,255,0.7);
+}

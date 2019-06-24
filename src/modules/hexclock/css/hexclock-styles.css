@@ -1,0 +1,26 @@
+#clock-body {
+  /* position: absolute;
+  bottom: 30%; */
+  transition: 0.5s;
+  text-align: center;
+  width: 100%;
+  flex-grow: 0;
+}
+
+#clock-wrapper {
+
+}
+
+#clock-body h1 {
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 28pt;
+  font-weight: 400;
+}
+
+#clock-body h2 {
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16pt;
+  font-weight: 400;
+}

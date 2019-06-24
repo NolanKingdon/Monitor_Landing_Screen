@@ -1,0 +1,116 @@
+#yt-missed-video-debug {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  display: none;
+  background-color: white;
+}
+
+#yt-title-scroll {
+  position: absolute;
+  top: 0;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2em;
+  z-index: 100;
+  color: white;
+  background-color: rgba(0,0,0,0.1);
+  height: 50px;
+}
+
+ /* width */
+ #yt-search-results::-webkit-scrollbar {
+   height: 5px;
+ }
+
+ /* Track */
+ #yt-search-results::-webkit-scrollbar-track {
+   background: black;
+ }
+
+ /* Handle */
+ #yt-search-results::-webkit-scrollbar-thumb {
+   background: #555;
+
+ }
+
+ /* Handle on hover */
+ #yt-search-results::-webkit-scrollbar-thumb:hover {
+   background: #333;
+ }
+
+ #youtube-body {
+   min-height: 39vh;
+   max-width: 576px; /*This appears to be the max width for a third of my screen*/
+   overflow: hidden;
+   background-color: rgba(0,0,0,0.3);
+ }
+
+#yt-control-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: -4px;
+  /*inline-block adds space whereas block didn't on #player*/
+}
+
+#youtube-body #player {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.input {
+  background-color: #5C5B5B;
+  /* width: 85%; */
+  border: none;
+  padding: 5px;
+  margin: 0;
+  color: white;
+  flex-grow: 4;
+}
+
+.input::placeholder {
+  color: white;
+}
+
+.btn {
+  border: none;
+  background-color: #474747;
+  padding: 5px;
+  margin: 0;
+  color: white;
+  flex-grow: 0;
+}
+
+.btn:hover {
+  cursor: pointer;
+  filter: brightness(110%);
+}
+
+#yt-search-results {
+  overflow-x: scroll;
+  display: none;
+  background-color: rgba(0,0,0, 0.6);
+}
+
+.yt-search-result-item {
+  margin: 0px 5px;
+}
+
+.yt-search-result-item:hover {
+  cursor: pointer;
+}
+
+.yt-search-video-title {
+  font-size: 12pt;
+  color: white;
+  filter: brightness(80%);
+  text-align: center;
+  text-transform: capitalize;
+  font-family: sans-serif;
+}
+
+.yt-search-video-thumb {
+  width: 150px;
+  height: auto;
+}

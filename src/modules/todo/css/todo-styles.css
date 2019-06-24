@@ -1,0 +1,188 @@
+#todo {
+  height: 52vh;
+  /* background-color: rgba(0,0,0,0.4); */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+#todo-section-title {
+  position: absolute;
+  top: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: rgba(0,0,0,0.8);
+  /* background-image: linear-gradient(
+                   to right,
+                   rgba(0,0,0,0.8),
+                   rgba(0,0,0,0.8),
+                   rgba(0,0,0,0.8),
+                   rgba(0,0,0,0.8),
+                   rgba(0,0,0,0)
+   ); */
+  width: 98.9%;
+  color: white;
+  text-align: center;
+  letter-spacing: 25px;
+  margin-right: 5px;
+}
+
+ #todo-list {
+   margin-top: 1.8em;
+   max-height: 45vh;
+   overflow-y: scroll;
+ }
+
+/* Scrollbar styles */
+ /* width */
+ #todo-list::-webkit-scrollbar {
+   width: 5px;
+ }
+
+ /* Track */
+ #todo-list::-webkit-scrollbar-track {
+   background: transparent;
+ }
+
+ /* Handle */
+ #todo-list::-webkit-scrollbar-thumb {
+   background: black;
+
+ }
+
+ /* Handle on hover */
+ #todo-list::-webkit-scrollbar-thumb:hover {
+   background: #555;
+ }
+
+ #todo-form, #todo-edit-form{
+   display: none;
+   grid-template-columns: repeat(8, 1fr);
+   grid-template-rows: auto;
+   grid-gap: 1px;
+   margin-right: 5px;
+ }
+
+ #todo-title, #todo-title-edit {
+   grid-area: auto / 1 / auto / 7;
+ }
+
+ #todo-notes, #todo-notes-edit {
+   grid-area: auto / 1 / auto / 7;
+ }
+
+ .todo-section {
+   font-family: 'Roboto', sans-serif;
+   color: white;
+   user-select: none;
+ }
+
+
+ .todo-section-header {
+   background-color: rgba(0,0,0,0.7);
+   /* background-image: linear-gradient(to right,
+                     rgba(0, 0, 0, 0.7),
+                     rgba(0, 0, 0, 0.7),
+                     rgba(0, 0, 0, 0.7),
+                     rgba(0, 0, 0, 0.7),
+                     transparent); */
+   padding: 5px;
+ }
+
+ .todo-section-header:hover {
+   cursor: pointer;
+ }
+
+ .todo-list-item {
+   display: grid;
+   grid-template-columns: repeat(6, 1fr);
+   grid-template-rows: 1fr;
+   padding-left: 15px;
+   padding-bottom: 2px;
+ }
+
+ .todo-list-item h2 {
+   grid-area: 1/1/1/5;
+   font-size: 10pt;
+ }
+
+ .todo-list-item h2:hover{
+   cursor: pointer;
+ }
+
+ .todo-list-item-due {
+   grid-area: 1/5/1/6;
+   font-size: 10pt;
+ }
+
+ .todo-list-item-btn {
+   width: auto;
+   grid-area: 1/6/1/7;
+   text-align: right;
+ }
+
+ .todo-btn {
+   display: inline-block;
+   padding: 0px 5px 0px 5px;
+
+   width: 30%;
+   height: 100%;
+ }
+
+ .todo-btn img {
+   width: 100%;
+   height: auto;
+ }
+
+ .todo-list-details {
+   display: none;
+   margin-left: 15px;
+   font-size: 10pt;
+   grid-area: 2/1/2/7;
+ }
+
+
+ .todo-list-item:nth-child(odd){
+   background-color: rgba(50, 50, 50, 0.5);
+   /* background-image: linear-gradient(to right,
+                     rgba(50, 50, 50, 0.5),
+                     rgba(50, 50, 50, 0.5),
+                     rgba(50, 50, 50, 0.5),
+                     rgba(50, 50, 50, 0.5),
+                     transparent); */
+ }
+
+ .todo-list-item:nth-child(even){
+   background-color: rgba(30, 30, 30, 0.5);
+   /* background-image: linear-gradient(to right,
+                     rgba(100, 100, 100, 0.5),
+                     rgba(100, 100, 100, 0.5),
+                     rgba(100, 100, 100, 0.5),
+                     rgba(100, 100, 100, 0.5),
+                     transparent); */
+ }
+
+
+ .todo-section-active {
+   border: 1px solid white;
+   border-radius: 90px;
+   padding: 0px 5px;
+ }
+
+ .todo-section-header p{
+   display: inline;
+ }
+
+/* For the first load - You don't want to have the tasks showing */
+ #todo-personal-list, #todo-hobby-list, #todo-school-list {
+   display: none;
+ }
+
+ #todo-display-add {
+   text-decoration: none;
+   color: white;
+   font-weight: 1000;
+   position: absolute;
+   top: 0;
+   right: 10px;
+ }

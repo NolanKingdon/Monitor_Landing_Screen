@@ -1,8 +1,4 @@
 class Module {
-  // this.config;
-  // this.cssPath;
-  // this.DOMTemplate = ``;
-  // this.scriptLocations = [];
 
   constructor(config, name){
     this.config = config;
@@ -17,23 +13,26 @@ class Module {
     return this.name;
   }
 
+  get getDOM(){
+    console.log("Getting DOM from " + this.getName)
+    this.setDOM = this.makeDOM();
+    return this.DOMString;
+  }
   set setDOM(domString){
-    console.log("Setting DOM");
+    console.log("Setting DOM for "  + this.getName);
     //returns the DOM template string
     this.DOMString = domString;
   }
 
-  get getDOM(){
-    console.log("Getting DOM")
+  get getScripts(){
+    console.log("Getting Scripts for " + this.getName);
+    return this.scripts;
   }
 
   set setScripts(scripts){
     //Additional Scripts
+    console.log("Setting Scripts for "  + this.getName);
     this.scripts = scripts;
-  }
-
-  get getScripts(){
-    return this.scripts;
   }
 
   createWindow(){
@@ -43,10 +42,12 @@ class Module {
 
   get getCSS(){
     //returns string of css files
+    console.log("Getting CSS path for "  + this.getName);
     return this.cssPath;
   }
 
   set setCSS(cssPath){
+    console.log("Setting CSS for "  + this.getName);
     this.cssPath = cssPath;
     //Sets css path
   }

@@ -25,12 +25,21 @@ for(let i=0; i<config.modules.length; i++){
   //Adding CSS references
   // TODO - Think about making this specific using IDs or classes --> Take some work off of the user
   currentMod.setCSS = currentMod.defineCSS();
-  cssPile["local"].push(`../modules/${curName}/css/${currentMod.getCSS["local"]}`);
-  cssPile["external"].push(currentMod.getCSS["external"])
+  if(currentMod.getCSS["local"].length != 0){
+    cssPile["local"].push(`../modules/${curName}/css/${currentMod.getCSS["local"]}`);
+  }
+
+  if(currentMod.getCSS["external"].length != 0){
+    cssPile["external"].push(currentMod.getCSS["external"]);
+  }
   //Adding script references
   currentMod.setScripts = currentMod.defineScripts();
-  scriptPile["local"].push(`../modules/${curName}/js/${currentMod.getScripts["local"]}`);
-  scriptPile["external"].push(currentMod.getScripts["external"]);
+  if(currentMod.getScripts["local"].length !== 0){
+    scriptPile["local"].push(`../modules/${curName}/js/${currentMod.getScripts["local"]}`);
+  }
+  if(currentMod.getScripts["external"].length !== 0){
+    scriptPile["external"].push(currentMod.getScripts["external"]);
+  }
   // Adding the current module to the dict under it's given name
   modDict[config.modules[i].name] = currentMod;
   console.log(currentMod.getName + " load completed");

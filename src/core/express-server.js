@@ -2,7 +2,8 @@ console.log(__dirname + "/test.html");
 var app = require('express')();
 var server = require('http').Server(app);
 const { exec } = require('child_process');
-const commands = require('../modules/launchpad/backend/commandExec.js');
+const commands = require('../modules/Launchpad/backend/commandExec.js');
+
 
 server.listen(80);
 // WARNING: app.listen(80) will NOT work here!

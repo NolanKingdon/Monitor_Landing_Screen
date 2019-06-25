@@ -5,11 +5,10 @@
     <title>Hex Clock</title>
     <link rel = "stylesheet" href = "css/styles.css">
     <!--
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-database.js"></script>-->
-    <!-- <script src="./moduleHandler.js"></script> -->
+
     <script>
       //Requesting our site from the backend
       const http = new XMLHttpRequest();
@@ -19,7 +18,6 @@
             const parsedRes = JSON.parse(http.responseText);
             const DOM = parsedRes.DOMPile;
             const CSS = parsedRes.cssPile;
-            console.log(CSS.external);
             const SCRIPTS = parsedRes.scriptPile;
             // *** Setting the DOM to our collected HTML
 
@@ -31,16 +29,7 @@
               }
             }
 
-            //document.getElementById("test").innerHTML = DOM;
-
             // *** Appending CSS links to the head
-            const head = document.getElementById("head");
-            for(let i=0; i<CSS.length; i++){
-              let css = document.createElement("link");
-              css.rel = "stylesheet";
-              css.href = CSS[i];
-              head.appendChild(css);
-            }
 
             for(let i=0; i<CSS.local.length; i++){
               let link = document.createElement("link");
@@ -61,7 +50,7 @@
             for(let i=0; i<SCRIPTS.external.length; i++){
               let script = document.createElement("script");
               script.src = SCRIPTS.external[i];
-              head.appendChild;
+              head.appendChild(script);
             }
 
             //Putting all the local script tags at the bottom so they run when everything loads
@@ -142,9 +131,6 @@
             <button class="btn" id="todo-edit">Edit</button>
           </form>
           <script src="./js/todos.js"></script>
-        </section>
-        <section id="launchpad">
-          <script src="js/launchpad.js"></script>
         </section>-->
       </div>
       <div class="vertical-flex">
@@ -277,46 +263,7 @@
             <h2 id = "date"></h2>
           </div>
         </section>
-        <section id="timer">
-          <div id="timer-topline">-->
-            <!-- Increment row -->
-            <!--<button class="timer-controls" onclick="addHour()"><img src="./images/icons/Chevron Up-white.png"/></button>
-            <button class="timer-controls" onclick="addMinute()"><img src="./images/icons/Chevron Up-white.png"/></button>
-            <button class="timer-controls" onclick="addSecond()"><img src="./images/icons/Chevron Up-white.png"/></button>
-            <button class="timer-controls" id="reset-timer" onclick="clearCount()">Reset</button>-->
-            <!-- Timer Face -->
-            <!-- <div class="number-container"> -->
-              <!--
-              number-container is our fixed height box around our number to make sure that we don't have any adverse effects
-              from making enough room to scroll
-             -->
-              <!-- <div id="hours-invisible-scroll"> -->
-                <!-- Our actual div that scrolls. z-index sits above our hours module. br's give some space to scroll with -->
-                <!-- <br/><br/><br/><br/>
-              </div>
-              <p id="timer-hours">00</p>
-            </div>
-            <div class="number-container">
-              <div id="minutes-invisible-scroll">
-                <br/><br/><br/><br/>
-              </div>
-              <p id="timer-minutes">00</p>
-            </div>
-            <div class="number-container">
-              <div id="seconds-invisible-scroll">
-                <br/><br/><br/><br/>
-              </div>
-              <p id="timer-seconds">00</p>
-            </div>
-            <button class="timer-controls" id="start-timer" onclick="beginCount()">Start</button> -->
-            <!-- Decrement Row -->
-            <!-- <button class="timer-controls" onclick="rmvHour()"><img src="./images/icons/Chevron Down-white.png"/></button>
-            <button class="timer-controls" onclick="rmvMinute()"><img src="./images/icons/Chevron Down-white.png"/></button>
-            <button class="timer-controls" onclick="rmvSecond()"><img src="./images/icons/Chevron Down-white.png"/></button>
-            <button class="timer-controls" id="pause-timer" onclick="pauseCount()">Pause</button>
-          </div>
-          <script src="./js/timer.js"></script>
-        </section>
+
         <section id="sys-info">
           <div id="sys-info-body"> -->
             <!--
@@ -348,10 +295,9 @@
         </section>
       </div> -->
     </div>
-    <section id="script-dump">
-    </section>
+  </div>
+  <section id="script-dump">
+    <script src="http://localhost:80/socket.io/socket.io.js"></script>
+  </section>
   </body>
-  <!-- <script>
-    require('./js/hexClock.js');
-  </script> -->
 </html>

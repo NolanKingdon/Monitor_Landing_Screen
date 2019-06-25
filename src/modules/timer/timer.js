@@ -1,158 +1,80 @@
-//Timer face
-const hours = document.getElementById("timer-hours"),
-      minutes = document.getElementById("timer-minutes"),
-      seconds = document.getElementById("timer-seconds");
+const Module = require('../Module.js');
 
-//Control Buttons
-const incTimerMin = document.getElementById("increment-timer-minute"),
-      decTimerMin = document.getElementById("decrement-timer-minute"),
-      incTimerHr = document.getElementById("increment-timer-hour"),
-      decTimerHr = document.getElementById("decrement-timer-hour"),
-      incTimerSec = document.getElementById("increment-timer-second"),
-      decTimerSec = document.getElementById("decrement-timer-second"),
-      startTimer = document.getElementById("start-timer"),
-      pauseTimer = document.getElementById("pause-timer"),
-      resetTimer = document.getElementById("reset-timer");
+class Timer extends Module {
 
-let timerInterval;
-let finishedAlert;
-let counting = false;
+  constructor(config){
+    super(config);
+    console.log(this.config.name + " module load started");
+  }
 
-function addSecond(){
-  if(!counting){
-    seconds.innerHTML = ((parseInt(seconds.innerHTML) + 1).toString().length === 1 ?
-                      "0" + (parseInt(seconds.innerHTML) + 1).toString() :
-                      (parseInt(seconds.innerHTML) + 1).toString());
+  makeDOM(){
+    console.log("Making DOM for "  + this.getName);
+    // User code here
+    return `
+      <section id=${this.getName}>
+        <div id="timer-topline">
+          <!-- Increment row -->
+          <button class="timer-controls" onclick="addHour()"><img src="../modules/${this.getName}/images/Chevron Up-white.png"/></button>
+          <button class="timer-controls" onclick="addMinute()"><img src="../modules/${this.getName}/images/Chevron Up-white.png"/></button>
+          <button class="timer-controls" onclick="addSecond()"><img src="../modules/${this.getName}/images/Chevron Up-white.png"/></button>
+          <button class="timer-controls" id="reset-timer" onclick="clearCount()">Reset</button>
+          <!-- Timer Face -->
+          <div class="number-container">
+            <!--
+            number-container is our fixed height box around our number to make sure that we don't have any adverse effects
+            from making enough room to scroll
+           -->
+            <div id="hours-invisible-scroll">
+              <!-- Our actual div that scrolls. z-index sits above our hours module. br's give some space to scroll with -->
+              <br/><br/><br/><br/>
+            </div>
+            <p id="timer-hours">00</p>
+          </div>
+          <div class="number-container">
+            <div id="minutes-invisible-scroll">
+              <br/><br/><br/><br/>
+            </div>
+            <p id="timer-minutes">00</p>
+          </div>
+          <div class="number-container">
+            <div id="seconds-invisible-scroll">
+              <br/><br/><br/><br/>
+            </div>
+            <p id="timer-seconds">00</p>
+          </div>
+          <button class="timer-controls" id="start-timer" onclick="beginCount()">Start</button>
+          <!-- Decrement Row -->
+          <button class="timer-controls" onclick="rmvHour()"><img src="../modules/${this.getName}/images/Chevron Down-white.png"/></button>
+          <button class="timer-controls" onclick="rmvMinute()"><img src="../modules/${this.getName}/images/Chevron Down-white.png"/></button>
+          <button class="timer-controls" onclick="rmvSecond()"><img src="../modules/${this.getName}/images/Chevron Down-white.png"/></button>
+          <button class="timer-controls" id="pause-timer" onclick="pauseCount()">Pause</button>
+        </div>
+      </section>
+    `;
+  }
+
+  defineCSS(){//Return the file name
+    console.log("Defining CSS for "  + this.getName);
+    let styles = {
+        local: [`${this.getName}-styles.css`],
+        external: ["https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto"]
+    };
+    return styles;
+  }
+
+  defineScripts(){ // Returns list of all scripts + dirName + js
+    // eg. ['timer.js', 'timerColor.js']
+    // === ..../modules/timer/js/ + timer.js etc.
+    console.log("Loading Scripts list for " + this.getName);
+    const scripts = {
+      //Will be searched for in the module/js subfolder - To be run in frontent
+      //Make your calls to the backend here (Still need to configure the express-server to respond)
+      local: ["timer.js"],
+      //Will be added in as is. ex: CDNs
+      external: []
+    }
+    return scripts;
   }
 }
 
-function addMinute(){
-  if(!counting){
-    minutes.innerHTML = ((parseInt(minutes.innerHTML) + 1).toString().length === 1 ?
-                      "0" + (parseInt(minutes.innerHTML) + 1).toString() :
-                      (parseInt(minutes.innerHTML) + 1).toString());
-  }
-}
-
-function addHour(){
-  if(!counting){
-    hours.innerHTML = ((parseInt(hours.innerHTML) + 1).toString().length === 1 ?
-                        "0" + (parseInt(hours.innerHTML) + 1).toString() :
-                        (parseInt(hours.innerHTML) + 1).toString());
-  }
-}
-
-function rmvSecond(){
-  if(seconds.innerHTML !== "00" && !counting){
-    seconds.innerHTML = ((parseInt(seconds.innerHTML) - 1).toString().length === 1 ?
-                        "0" + (parseInt(seconds.innerHTML) - 1).toString() :
-                        (parseInt(seconds.innerHTML) - 1).toString());
-  }
-}
-
-function rmvMinute(){
-  if(minutes.innerHTML !== "00" && !counting){
-    minutes.innerHTML = ((parseInt(minutes.innerHTML) - 1).toString().length === 1 ?
-                        "0" + (parseInt(minutes.innerHTML) - 1).toString() :
-                        (parseInt(minutes.innerHTML) - 1).toString());
-  }
-}
-
-function rmvHour(){
-  if(hours.innerHTML !=="00" && !counting){
-    hours.innerHTML = ((parseInt(hours.innerHTML) - 1).toString().length === 1 ?
-                      "0" + (parseInt(hours.innerHTML) - 1).toString() :
-                      (parseInt(hours.innerHTML) - 1).toString());
-
-  }
-}
-
-function beginCount(){
-  counting = true;
-  finishedAlert = new Audio();
-  finishedAlert.src = "./media/mp3/old-fashioned-school-bell-daniel_simon.mp3";
-  timerInterval = setInterval(
-    () => {
-      if(seconds.innerHTML === "00") {
-        seconds.innerHTML = "59";
-        if(minutes.innerHTML === "00") {
-          minutes.innerHTML = "59";
-          if (hours.innerHTML === "00"){
-          } else {
-            hours.innerHTML = ((parseInt(hours.innerHTML)-1).toString().length === 1 ?
-            "0" + (parseInt(hours.innerHTML)-1).toString() :
-            (parseInt(hours.innerHTML)-1).toString());
-          }
-        } else {
-          minutes.innerHTML = ((parseInt(minutes.innerHTML)-1).toString().length === 1 ?
-          "0" + (parseInt(minutes.innerHTML)-1).toString() :
-          (parseInt(minutes.innerHTML)-1).toString());
-        }
-      } else {
-        seconds.innerHTML = ((parseInt(seconds.innerHTML)-1).toString().length === 1 ?
-        "0" + (parseInt(seconds.innerHTML)-1).toString() :
-        (parseInt(seconds.innerHTML)-1).toString());
-      }
-      //Checking if we're done
-      if(seconds.innerHTML === "00" && minutes.innerHTML === "00" && hours.innerHTML === "00"){
-        finishedAlert.play();
-        pauseCount();
-      }
-    }, 1000);
-}
-
-function pauseCount(){
-  clearInterval(timerInterval);
-  counting = false;
-}
-
-function clearCount(){
-  pauseCount();
-  finishedAlert.pause();
-  seconds.innerHTML = "00";
-  minutes.innerHTML = "00";
-  hours.innerHTML = "00";
-}
-
-//Testing nonsense below
-
-let invisScrollerHours = document.getElementById("hours-invisible-scroll");
-invisScrollerHours.scrollTop = 20;
-invisScrollerHours.addEventListener("scroll", (e)=>{
-  if(e.target.scrollTop == 19){
-    console.log("Scrolled up");
-    addHour();
-  } else if(e.target.scrollTop == 21){
-    console.log("Scrolled Down")
-    rmvHour();
-  }
-  e.target.scrollTop = 20;
-  }
-)
-
-let invisScrollerMinutes = document.getElementById("minutes-invisible-scroll");
-invisScrollerMinutes.scrollTop = 20;
-invisScrollerMinutes.addEventListener("scroll", (e)=>{
-  if(e.target.scrollTop == 19){
-    console.log("Scrolled up");
-    addMinute();
-  } else if(e.target.scrollTop == 21){
-    console.log("Scrolled Down")
-    rmvMinute();
-  }
-  e.target.scrollTop = 20;
-  }
-)
-let invisScrollerSeconds = document.getElementById("seconds-invisible-scroll");
-invisScrollerSeconds.scrollTop = 20;
-invisScrollerSeconds.addEventListener("scroll", (e)=>{
-  if(e.target.scrollTop == 19){
-    console.log("Scrolled up");
-    addSecond();
-  } else if(e.target.scrollTop == 21){
-    console.log("Scrolled Down")
-    rmvSecond();
-  }
-  e.target.scrollTop = 20;
-  }
-)
+module.exports = Timer;

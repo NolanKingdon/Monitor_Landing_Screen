@@ -1,4 +1,4 @@
-#timer {
+#Timer {
   text-align: center;
 }
 
@@ -32,7 +32,7 @@
   outline: none;
 }
 
-#timer p {
+#Timer p {
   display: inline;
   color: white;
   font-family: 'Roboto Mono', monospace;

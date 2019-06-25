@@ -1,82 +1,47 @@
-const startTime = new Date();
-let currTime = startTime;
-const clock = document.getElementById("clock");
-const date = document.getElementById("date");
-const body = document.getElementsByTagName("body")[0];
-/*let time = {
-  seconds: startTime.getSeconds(),
-  minutes: startTime.getMinutes(),
-  hours: startTime.getHours(),
-  day: startTime.getDate(),
-  month: startTime.getMonth()+1,
-  year: startTime.getFullYear()
-}*/
+const Module = require('../Module.js');
 
-let time = {
-  seconds:58,
-  minutes:59,
-  hours:23,
-  day:5,
-  month:2,
-  year:2019
-}
-let backgroundColor = "#" + time.hours + time.minutes + time.seconds;
+class Test extends Module {
 
-function setClock(time){
-  clock.innerHTML = "#" + time.hours + time.minutes + time.seconds;
-}
+  constructor(config){
+    super(config);
+    console.log(this.config.name + " module load started");
+  }
 
-function setDate(time){
-  date.innerHTML = time.day + "/" + time.month + "/" + time.year;
-}
+  makeDOM(){
+    console.log("Making DOM for "  + this.getName);
+    // User code here
+    return `
+      <section id=${this.getName}>
+        <div id = "clock-wrapper">
+          <h1 id = "clock"></h1>
+          <h2 id = "date"></h2>
+        </div>
+      </section>
+    `;
+  }
 
-function setBackground(time){
-  body.style.backgroundColor = "#" + time.hours + time.minutes + time.seconds;
-}
+  defineCSS(){//Return the file name
+    console.log("Defining CSS for "  + this.getName);
+    let styles = {
+        local: [`${this.getName}-styles.css`],
+        external: []
+    };
+    return styles;
+  }
 
-function updateTime(oldTime){
-  if(oldTime.seconds === 59) {
-    oldTime.seconds = "00";
-    if(oldTime.minutes === 59) {
-      oldTime.minutes = 0;
-      if (oldTime.hours === 23){
-        currTime = new Date();
-        /*
-        Requesting a new Date daily - ensures I don't have to calculate days in
-        a month, leap years, etc., and happens infrequently enough so that there
-        is no time delay as would be the case if I did this for every second
-        */
-        time = {
-          seconds: currTime.getSeconds(),
-          minutes: currTime.getMinutes(),
-          hours: currTime.getHours(),
-          day: currTime.getDate(),
-          month: currTime.getMonth()+1,
-          year: currTime.getFullYear()
-        }
-      } else {
-        oldTime.hours ++;
-      }
-    } else {
-      oldTime.minutes ++;
+  defineScripts(){ // Returns list of all scripts + dirName + js
+    // eg. ['timer.js', 'timerColor.js']
+    // === ..../modules/timer/js/ + timer.js etc.
+    console.log("Loading Scripts list for " + this.getName);
+    const scripts = {
+      //Will be searched for in the module/js subfolder - To be run in frontent
+      //Make your calls to the backend here (Still need to configure the express-server to respond)
+      local: ['hexclock.js'],
+      //Will be added in as is. ex: CDNs
+      external: []
     }
-  } else {
-    oldTime.seconds ++;
+    return scripts;
   }
-
-  if(time.seconds.toString().length === 1){
-    time.seconds = "0" + time.seconds.toString();
-  }
-  if(time.minutes.toString().length === 1){
-    time.minutes = "0" + time.minutes.toString();
-  }
-  if(time.hours.toString().length === 1){
-    time.hours = "0" + time.hours.toString();
-  }
-
-  setClock(time);
-  setDate(time);
-  setBackground(time);
 }
 
-setInterval(function(){updateTime(time, currTime)}, 1000);
+module.exports = Test;

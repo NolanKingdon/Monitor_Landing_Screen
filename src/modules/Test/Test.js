@@ -11,7 +11,7 @@ class Test extends Module {
     console.log("Making DOM for "  + this.getName);
     // User code here
     return `
-      <section ${this.getName}>
+      <section id=${this.getName}>
         <h1 id="Test-test">This is written in a JavaScript Class</h1>
         <p>It is loaded by a parser when queried by the moduleHandler</p>
         <p>The module handler is triggered by a script in the main html file</p>

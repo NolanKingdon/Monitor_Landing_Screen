@@ -1,4 +1,4 @@
-#clock-body {
+#Hexclock {
   /* position: absolute;
   bottom: 30%; */
   transition: 0.5s;
@@ -11,14 +11,14 @@
 
 }
 
-#clock-body h1 {
+#Hexclock h1 {
   color: white;
   font-family: 'Roboto Mono', monospace;
   font-size: 28pt;
   font-weight: 400;
 }
 
-#clock-body h2 {
+#Hexclock h2 {
   color: white;
   font-family: 'Roboto Mono', monospace;
   font-size: 16pt;

@@ -21,7 +21,16 @@
             const CSS = parsedRes.cssPile;
             const SCRIPTS = parsedRes.scriptPile;
             // *** Setting the DOM to our collected HTML
-            document.getElementById("test").innerHTML = DOM;
+
+            let cols = document.getElementsByClassName("vertical-flex");
+
+            for(let i=0; i<Object.keys(DOM).length; i++){//Iterating through all dom cols
+              if(cols[i]){
+                cols[i].innerHTML += DOM[i];
+              }
+            }
+
+            //document.getElementById("test").innerHTML = DOM;
 
             // *** Appending CSS links to the head
             const head = document.getElementById("head");
@@ -31,6 +40,22 @@
               css.href = CSS[i];
               head.appendChild(css);
             }
+
+            //Putting all the external script tags at the top so we can have them before the bottom ones
+
+            for(let i=0; i<SCRIPTS.external.length; i++){
+              let script = document.createElement("script");
+              script.src = SCRIPTS.external[i];
+              head.appendChild;
+            }
+
+            //Putting all the local script tags at the bottom so they run when everything loads
+            const scriptDump = document.getElementById("script-dump");
+            for(let i=0; i<SCRIPTS.local.length; i++){
+              let script = document.createElement("script");
+              script.src = SCRIPTS.local[i];
+              scriptDump.appendChild(script);
+            }
         }
       }
       http.open("GET", "http://localhost/moduleHandler");
@@ -38,7 +63,7 @@
     </script>
   </head>
   <body id="test">
-    <<div class="horizontal-flex">
+    <div class="horizontal-flex">
       <div class="vertical-flex">
         <!--<section id="todo">
           <script src="./js/firebase.js"></script>
@@ -308,6 +333,8 @@
         </section>
       </div> -->
     </div>
+    <section id="script-dump">
+    </section>
   </body>
   <!-- <script>
     require('./js/hexClock.js');

@@ -1,6 +1,8 @@
 let si = require('systeminformation');
-let expServer = require('./express-server.js');
-let io = require('socket.io')(expServer);
+let expServer = require('../../../core/express-server.js');
+const io = require('socket.io')(expServer);
+
+console.log("sys-info socket loaded");
 
 let currentLoad;
 let resolution;
@@ -15,6 +17,7 @@ function getHarddiskInfo(){
 
 
 io.on('connection', function (socket) {
+  console.log("Connected");
   //Sending CPU processing speed
   setInterval( () => {
     si.currentLoad( (data) => {

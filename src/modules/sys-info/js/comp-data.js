@@ -1,3 +1,5 @@
+console.log("Loaded comp-data.js");
+
 const socket = io.connect('http://localhost');
 let cpuSpd = document.getElementById("processor-speed");
 let cpuType = document.getElementById("sys-cpu-info");
@@ -9,61 +11,61 @@ let prevLength = 0
 //Chart
 
 class CPUGraph {
-      constructor(canvasID){
-        this.canvas = document.getElementById(canvasID);
-        this.ctx = this.canvas.getContext("2d");
-        this.points = [];
-      }
+  constructor(canvasID){
+    this.canvas = document.getElementById(canvasID);
+    this.ctx = this.canvas.getContext("2d");
+    this.points = [];
+  }
 
-      drawGraph(){
-        this.drawBorder();
-        this.drawPoints();
-      }
+  drawGraph(){
+    this.drawBorder();
+    this.drawPoints();
+  }
 
-      drawBorder(){
-        this.ctx.beginPath();
-        this.ctx.strokeStyle = "rgba(255,255,255,1)";
-        this.ctx.moveTo(37, 20);
-        this.ctx.lineTo(37, 120);
-        this.ctx.lineTo(430, 120);
-        this.ctx.stroke();
-        this.ctx.closePath();
-      }
+  drawBorder(){
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = "rgba(255,255,255,1)";
+    this.ctx.moveTo(37, 20);
+    this.ctx.lineTo(37, 120);
+    this.ctx.lineTo(430, 120);
+    this.ctx.stroke();
+    this.ctx.closePath();
+  }
 
-      drawPoints(point){
+  drawPoints(point){
 
-        if(this.points.length < 11){
-          this.points.push(point);
-        } else {
-          this.points.shift();
-          this.points.push(point);
-        }
-
-        this.ctx.clearRect(37, 19, 431, 101);
-
-        let count = 0;
-        this.ctx.beginPath();
-        // this.ctx.moveTo(37, pointsY[0]);
-        this.ctx.strokeStyle = "rgba(255,255,255,1)";
-        for(let i=1; i<=this.points.length; i++){
-          if(count == 0){this.ctx.strokeStyle = "transparent"} else {this.ctx.strokeStyle = "rgba(255,255,255,1)"}
-          this.ctx.lineTo(i*38, 120-this.points[count]);
-          // this.ctx.arc(i*37, this.points[count], 3, 0, 2*Math.PI);
-          this.ctx.stroke();
-          count++;
-        }
-        this.ctx.strokeStyle = "transparent";
-        this.ctx.fillStyle = "rgba(255,255,255,0.2)";
-        this.ctx.lineTo(this.points.length*38, 120);
-        this.ctx.lineTo(38, 120);
-        this.ctx.lineTo(38, this.points[0]);
-        this.ctx.fill();
-        this.ctx.closePath();
-      }
+    if(this.points.length < 11){
+      this.points.push(point);
+    } else {
+      this.points.shift();
+      this.points.push(point);
     }
 
-    let cpuG = new CPUGraph("cpu-graph");
-    cpuG.drawBorder();
+    this.ctx.clearRect(37, 19, 431, 101);
+
+    let count = 0;
+    this.ctx.beginPath();
+    // this.ctx.moveTo(37, pointsY[0]);
+    this.ctx.strokeStyle = "rgba(255,255,255,1)";
+    for(let i=1; i<=this.points.length; i++){
+      if(count == 0){this.ctx.strokeStyle = "transparent"} else {this.ctx.strokeStyle = "rgba(255,255,255,1)"}
+      this.ctx.lineTo(i*38, 120-this.points[count]);
+      // this.ctx.arc(i*37, this.points[count], 3, 0, 2*Math.PI);
+      this.ctx.stroke();
+      count++;
+    }
+    this.ctx.strokeStyle = "transparent";
+    this.ctx.fillStyle = "rgba(255,255,255,0.2)";
+    this.ctx.lineTo(this.points.length*38, 120);
+    this.ctx.lineTo(38, 120);
+    this.ctx.lineTo(38, this.points[0]);
+    this.ctx.fill();
+    this.ctx.closePath();
+  }
+}
+
+let cpuG = new CPUGraph("cpu-graph");
+cpuG.drawBorder();
 
 //Sockets
 socket.on('CPU_METRICS', (data) => {

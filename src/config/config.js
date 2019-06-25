@@ -6,7 +6,7 @@ let config = {
   modules: [
     {
       name: "Test",
-      location: "", //Which column
+      location: "right", //Which column
       config: {
         "":"" // Going to have things like keys, customization options, etc.
       }

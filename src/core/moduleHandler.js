@@ -35,10 +35,15 @@ for(let i=0; i<config.modules.length; i++){
   //Adding script references
   currentMod.setScripts = currentMod.defineScripts();
   if(currentMod.getScripts["local"].length !== 0){
-    scriptPile["local"].push(`../modules/${curName}/js/${currentMod.getScripts["local"]}`);
+    for(let i=0; i<currentMod.getScripts["local"].length; i++){
+      scriptPile["local"].push(`../modules/${curName}/js/${currentMod.getScripts["local"][i]}`);
+    }
   }
   if(currentMod.getScripts["external"].length !== 0){
-    scriptPile["external"].push(currentMod.getScripts["external"]);
+    for(let i=0; i<currentMod.getScripts["external"].length; i++){
+      scriptPile["external"].push(currentMod.getScripts["external"]);
+
+    }
   }
   // Adding the current module to the dict under it's given name
   modDict[config.modules[i].name] = currentMod;

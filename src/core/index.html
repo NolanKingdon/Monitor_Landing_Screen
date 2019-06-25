@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang = "en">
   <head id="head">
+    <script src="https://apis.google.com/js/api.js"></script>
     <meta charset="utf-8">
     <title>Hex Clock</title>
     <link rel = "stylesheet" href = "css/styles.css">
     <!--
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-database.js"></script>-->
 
@@ -134,166 +134,6 @@
         </section>-->
       </div>
       <div class="vertical-flex">
-        <!--<section id = "youtube-body">
-          <div id="player"></div>-->
-          <!-- TODO Switch to CSS marquee for more control -->
-          <!--<marquee id="yt-title-scroll">Test text</marquee>
-          <div id="yt-control-flex">
-            <button id="yt-play-toggle" class="btn" onclick="togglePlaying()">Play</button>
-            <button id="yt-skip" class="btn" onclick="nextVid()">Next</button>
-            <input  id="yt-input" class="input" type = "text"/>
-            <button id="yt-submit" class="btn">Submit</button>
-            <button id="yt-options" class="btn">...</button>
-
-          </div>-->
-          <!-- TODO Add in a button to search playlists?/display your existing playlist -->
-          <!--<div id="yt-search-results">
-
-          </div>
-          <div id="yt-missed-video-debug">
-            <ul id="yt-missed-list"></ul>
-          </div>
-          <script>
-            //TODO - put this into a seperate file for simplicity sake
-            const windowWidth = window.innerWidth/2;
-            const playerHeight = windowWidth * 0.6;
-            const starterVideo = (Math.floor(Math.random() * 214)).toString();
-            let playBtn = document.getElementById("yt-play-toggle");
-            let marqueeText = document.getElementById("yt-title-scroll");
-            let playing = false;
-            //TODO - play/pause icons
-            let missedVideo = document.getElementById("yt-missed-video-debug");
-            let missedVideoList = document.getElementById("yt-missed-list");
-
-            var tag = document.createElement('script');
-
-            tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-            var player;
-            function onYouTubeIframeAPIReady() {
-              player = new YT.Player('player', {
-                height: playerHeight,
-                width: windowWidth,
-                //videoId: "hHW1oY26kxQ",
-                playerVars: {
-                  color: "white",
-                  listType: "playlist",
-                  list: "PL0KqfOQxyR-MLbyTZLFUQuOfr9V5ElNSc",
-                  index: starterVideo,
-                  disablekb: 1,//No keyboard controls
-                  enablejsapi: 1,//Allowing btn control
-                  fs: 0,//Fullscreen off
-                  iv_load_policy: 3,//annotations not default
-                  modestbranding: 1,//prevents youtube logo
-                  controls: 0,
-                },
-                events: {
-                  'onReady': onPlayerReady,
-                  'onStateChange': onPlayerStateChange,
-                  'onError': onPlayerError,
-                }
-              });
-            }
-            function onPlayerReady(event) {
-              event.target.playVideo();
-            }
-            var done = false;
-
-            function onPlayerStateChange(event) {
-              console.log(player.getVolume());//TODO - volume slider
-              if(event.data === -1){//unstarted
-                let title = player.getVideoData().title;
-                changeMarquee(title);
-              }
-              if(event.data === 1){//playing
-              }
-              if(event.data === 2){//on pause
-              }
-              if(event.data === 3){//buffering
-                event.target.setShuffle({'shufflePlayList' : true});
-              }
-            }
-            function onPlayerError(event){
-              let missedVideo = document.createElement("li");
-              missedVideo.innerHTML = player.getVideoData().title;
-              missedVideoList.appendChild(missedVideo);
-              player.nextVideo();
-              playing = true;
-            }
-
-            function changeMarquee(text){
-              marqueeText.innerHTML = text;
-            }
-
-            function togglePlaying(){
-              if(playing){
-                playBtn.innerHTML = "Play";
-                playing = false;
-                player.pauseVideo();
-              } else if(!playing){
-                playBtn.innerHTML = "Pause";
-                playing = true;
-                player.playVideo();
-              }
-            }
-
-            function nextVid(){
-              player.nextVideo();
-              playing = true;
-            }
-
-            function editVarsTest(){
-              player.cuePlaylist({
-                listType: "playlist",
-                list: "PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG"
-              })
-            }
-
-          </script>-->
-          <!-- CUT/PASTE FEST -->
-          <!--<script src="https://apis.google.com/js/api.js"></script>-->
-          <!--<script src="./js/youtubePlayer.js"></script>-->
-          <!-- END CUT/PASTE FEST -->
-        <!--</section>
-        <section id = "clock-body">
-          <div id = "clock-wrapper">
-            <h1 id = "clock"></h1>
-            <h2 id = "date"></h2>
-          </div>
-        </section>
-
-        <section id="sys-info">
-          <div id="sys-info-body"> -->
-            <!--
-            Think layout.
-
-            Get graph in (Maybe double line for temp/processor percent?)
-            get more gpu info
-            get network info (maybe)
-            get hardware info
-
-           -->
-            <!-- <h2 id="sys-header">System Information</h2> -->
-            <!-- CPU Section -->
-            <!-- <p id="sys-cpu-head" class="sys-title-col">CPU:</p>
-            <p id="sys-cpu-info" class="sys-data-col"></p>
-            <p id="processor-speed" class="sys-data-col"></p>
-            <canvas id="cpu-graph" width="450"></canvas> -->
-            <!-- Display Section -->
-            <!-- <p class="sys-title-col">Display:</p>
-            <p id="gpu" class="sys-data-col"></p>
-            <p id="sys-screen" class="sys-data-col"></p>
-            <p class="sys-title-col">Drives:</p>
-            <div id="sys-info-drives">
-
-            </div>
-          </div>
-          <script src="/socket.io/socket.io.js"></script>
-          <script src="./js/comp-data.js"></script>
-        </section>
-      </div> -->
     </div>
   </div>
   <section id="script-dump">

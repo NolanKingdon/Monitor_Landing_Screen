@@ -12,6 +12,13 @@ let config = {
       }
     },
     {
+      name: "Youtube",
+      location: 1,
+      config: {
+        "":""
+      }
+    },
+    {
       name: "Timer",
       location: 1, //Which column - 0, 1, 2 ...
       config: {

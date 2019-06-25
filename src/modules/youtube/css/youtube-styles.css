@@ -38,7 +38,7 @@
    background: #333;
  }
 
- #youtube-body {
+ #Youtube {
    min-height: 39vh;
    max-width: 576px; /*This appears to be the max width for a third of my screen*/
    overflow: hidden;
@@ -53,7 +53,7 @@
   /*inline-block adds space whereas block didn't on #player*/
 }
 
-#youtube-body #player {
+#Youtube #player {
   margin: 0;
   padding: 0;
   display: inline-block;

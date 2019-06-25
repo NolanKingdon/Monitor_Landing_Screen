@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang = "en">
-  <head>
+  <head id="head">
     <meta charset="utf-8">
     <title>Hex Clock</title>
     <link rel = "stylesheet" href = "css/styles.css">
@@ -9,12 +9,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-database.js"></script>-->
-    <script src="./moduleHandler.js"></script>
+    <!-- <script src="./moduleHandler.js"></script> -->
+    <script>
+      //Requesting our site from the backend
+      const http = new XMLHttpRequest();
+      http.onreadystatechange = () => {
+        if(http.readyState == 4 && http.status == 200){
+            // *** Parsing response
+            const parsedRes = JSON.parse(http.responseText);
+            const DOM = parsedRes.DOMPile;
+            const CSS = parsedRes.cssPile;
+            const SCRIPTS = parsedRes.scriptPile;
+            // *** Setting the DOM to our collected HTML
+            document.getElementById("test").innerHTML = DOM;
+
+            // *** Appending CSS links to the head
+            const head = document.getElementById("head");
+            for(let i=0; i<CSS.length; i++){
+              let css = document.createElement("link");
+              css.rel = "stylesheet";
+              css.href = CSS[i];
+              head.appendChild(css);
+            }
+        }
+      }
+      http.open("GET", "http://localhost/moduleHandler");
+      http.send();
+    </script>
   </head>
-  <body>
-    <!--<div class="horizontal-flex">
+  <body id="test">
+    <<div class="horizontal-flex">
       <div class="vertical-flex">
-        <section id="todo">
+        <!--<section id="todo">
           <script src="./js/firebase.js"></script>
           <h2 id="todo-section-title">-TODO-</h2>
           <a href="#" id="todo-display-add" onclick="toggleAddInterface()"><h2>+</h2></a>
@@ -79,10 +105,10 @@
         </section>
         <section id="launchpad">
           <script src="js/launchpad.js"></script>
-        </section>
+        </section>-->
       </div>
       <div class="vertical-flex">
-        <section id = "youtube-body">
+        <!--<section id = "youtube-body">
           <div id="player"></div>-->
           <!-- TODO Switch to CSS marquee for more control -->
           <!--<marquee id="yt-title-scroll">Test text</marquee>
@@ -280,8 +306,8 @@
           <script src="/socket.io/socket.io.js"></script>
           <script src="./js/comp-data.js"></script>
         </section>
-      </div>
-    </div> -->
+      </div> -->
+    </div>
   </body>
   <!-- <script>
     require('./js/hexClock.js');

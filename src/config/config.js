@@ -6,7 +6,35 @@ let config = {
   modules: [
     {
       name: "Test",
-      location: "right", //Which column
+      location: 0, //Which column - 0, 1, 2 ...
+      config: {
+        "":"" // Going to have things like keys, customization options, etc.
+      }
+    },
+    {
+      name: "Test",
+      location: 0, //Which column - 0, 1, 2 ...
+      config: {
+        "":"" // Going to have things like keys, customization options, etc.
+      }
+    },
+    {
+      name: "Test",
+      location: 0, //Which column - 0, 1, 2 ...
+      config: {
+        "":"" // Going to have things like keys, customization options, etc.
+      }
+    },
+    {
+      name: "Test",
+      location: 0, //Which column - 0, 1, 2 ...
+      config: {
+        "":"" // Going to have things like keys, customization options, etc.
+      }
+    },
+    {
+      name: "Test",
+      location: 1, //Which column - 0, 1, 2 ...
       config: {
         "":"" // Going to have things like keys, customization options, etc.
       }

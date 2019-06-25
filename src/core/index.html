@@ -19,6 +19,7 @@
             const parsedRes = JSON.parse(http.responseText);
             const DOM = parsedRes.DOMPile;
             const CSS = parsedRes.cssPile;
+            console.log(CSS.external);
             const SCRIPTS = parsedRes.scriptPile;
             // *** Setting the DOM to our collected HTML
 
@@ -39,6 +40,20 @@
               css.rel = "stylesheet";
               css.href = CSS[i];
               head.appendChild(css);
+            }
+
+            for(let i=0; i<CSS.local.length; i++){
+              let link = document.createElement("link");
+              link.rel = "stylesheet";
+              link.href = CSS.local[i];
+              head.appendChild(link);
+            }
+
+            for(let i=0; i<CSS.external.length; i++){
+              let link = document.createElement("link");
+              link.rel = "stylesheet";
+              link.href = CSS.external[i];
+              head.appendChild(link);
             }
 
             //Putting all the external script tags at the top so we can have them before the bottom ones

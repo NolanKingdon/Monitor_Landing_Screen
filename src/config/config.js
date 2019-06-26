@@ -36,7 +36,7 @@ let config = {
       name: "Time",
       location: 1, //Which column - 0, 1, 2 ...
       config: {
-        "":"" // Going to have things like keys, customization options, etc.
+        clock:"solidClock" // Going to have things like keys, customization options, etc.
       }
     },
     {

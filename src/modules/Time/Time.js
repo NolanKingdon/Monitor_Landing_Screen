@@ -88,10 +88,11 @@ class Test extends Module {
     // eg. ['timer.js', 'timerColor.js']
     // === ..../modules/timer/js/ + timer.js etc.
     console.log("Loading Scripts list for " + this.getName);
+    let clocktype = this.config.config.clock;
     const scripts = {
       //Will be searched for in the module/js subfolder - To be run in frontent
       //Make your calls to the backend here (Still need to configure the express-server to respond)
-      local: ['hexclock.js', 'timer.js'],
+      local: [`${clocktype}.js`, 'timer.js'],
       //Will be added in as is. ex: CDNs
       external: []
     }

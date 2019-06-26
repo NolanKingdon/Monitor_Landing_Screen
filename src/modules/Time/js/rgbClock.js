@@ -23,7 +23,7 @@ let time = {
 let backgroundColor = "#" + time.hours + time.minutes + time.seconds;
 
 function setClock(time){
-  clock.innerHTML = "#" + time.hours + time.minutes + time.seconds;
+  clock.innerHTML = `${time.hours}:${time.minutes}:${time.seconds}`;
 }
 
 function setDate(time){
@@ -31,7 +31,7 @@ function setDate(time){
 }
 
 function setBackground(time){
-  body.style.backgroundColor = "#" + time.hours + time.minutes + time.seconds;
+  body.style.backgroundColor =  `rgb(${time.hours*11}, ${time.minutes*2}, ${time.seconds*4}, 1)`;
 }
 
 function updateTime(oldTime){

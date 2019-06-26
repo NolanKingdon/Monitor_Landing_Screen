@@ -23,15 +23,15 @@ let time = {
 let backgroundColor = "#" + time.hours + time.minutes + time.seconds;
 
 function setClock(time){
-  clock.innerHTML = "#" + time.hours + time.minutes + time.seconds;
+  clock.innerHTML = `${time.hours}:${time.minutes}:${time.seconds}`;
 }
 
 function setDate(time){
   date.innerHTML = time.day + "/" + time.month + "/" + time.year;
 }
 
-function setBackground(time){
-  body.style.backgroundColor = "#" + time.hours + time.minutes + time.seconds;
+function setBackground(){
+  body.style.backgroundColor =  `#1B0273`; //Nice dark purple
 }
 
 function updateTime(oldTime){
@@ -76,7 +76,7 @@ function updateTime(oldTime){
 
   setClock(time);
   setDate(time);
-  setBackground(time);
 }
 
+setBackground();
 setInterval(function(){updateTime(time, currTime)}, 1000);

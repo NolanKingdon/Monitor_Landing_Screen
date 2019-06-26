@@ -70,7 +70,7 @@ function rmvHour(){
 function beginCount(){
   counting = true;
   finishedAlert = new Audio();
-  finishedAlert.src = "../modules/Timer/media/mp3/old-fashioned-school-bell-daniel_simon.mp3";
+  finishedAlert.src = "../modules/Time/media/mp3/old-fashioned-school-bell-daniel_simon.mp3";
   timerInterval = setInterval(
     () => {
       if(seconds.innerHTML === "00") {

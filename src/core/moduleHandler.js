@@ -26,11 +26,15 @@ for(let i=0; i<config.modules.length; i++){
   // TODO - Think about making this specific using IDs or classes --> Take some work off of the user
   currentMod.setCSS = currentMod.defineCSS();
   if(currentMod.getCSS["local"].length != 0){
-    cssPile["local"].push(`../modules/${curName}/css/${currentMod.getCSS["local"]}`);
+    for(let i=0; i<currentMod.getCSS["local"].length; i++){
+      cssPile["local"].push(`../modules/${curName}/css/${currentMod.getCSS["local"][i]}`);
+    }
   }
 
   if(currentMod.getCSS["external"].length != 0){
-    cssPile["external"].push(currentMod.getCSS["external"]);
+    for(let i=0; i<currentMod.getCSS["external"].length; i++){
+      cssPile["external"].push(currentMod.getCSS["external"][i]);
+    }
   }
   //Adding script references
   currentMod.setScripts = currentMod.defineScripts();
@@ -41,8 +45,7 @@ for(let i=0; i<config.modules.length; i++){
   }
   if(currentMod.getScripts["external"].length !== 0){
     for(let i=0; i<currentMod.getScripts["external"].length; i++){
-      scriptPile["external"].push(currentMod.getScripts["external"]);
-
+      scriptPile["external"].push(currentMod.getScripts["external"][i]);
     }
   }
   // Adding the current module to the dict under it's given name

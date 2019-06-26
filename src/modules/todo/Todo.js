@@ -18,36 +18,9 @@ class Todo extends Module {
         <h2 id="todo-section-title">-TODO-</h2>
         <a href="#" id="todo-display-add" onclick="toggleAddInterface()"><h2>+</h2></a>
         <div id="todo-list">
-          <div class="todo-section">
-            <div class="todo-section-header" onclick="hideList('personal')">
-              <p id="todo-personal-head">+</p>
-              <p class="todo-section-label todo-closed">Personal</p>
-              <p class="todo-section-active" id="todo-personal-open">0</p>
-              <p class="todo-section-next" id="todo-personal-next"></p>
-            </div>
-            <div class="todo-section-list" id="todo-personal-list">
-            </div>
-          </div>
-          <div class="todo-section">
-            <div class="todo-section-header" onclick="hideList('hobby')">
-              <p id="todo-hobby-head">+</p>
-              <p class="todo-section-label todo-closed">Hobby</p>
-              <p class="todo-section-active" id="todo-hobby-open">0</p>
-              <p class="todo-section-next" id="todo-hobby-next"></p>
-            </div>
-            <div class="todo-section-list" id="todo-hobby-list">
-            </div>
-          </div>
-          <div class="todo-section">
-            <div class="todo-section-header" onclick="hideList('school')">
-              <p id="todo-school-head">+</p>
-              <p class="todo-section-label todo-closed" >School</p>
-              <p class="todo-section-active" id="todo-school-open">0</p>
-              <p class="todo-section-next" id="todo-school-next"></p>
-            </div>
-            <div class="todo-section-list" id="todo-school-list">
-            </div>
-          </div>
+          ${this.createTodoSection("personal")}
+          ${this.createTodoSection("hobby")}
+          ${this.createTodoSection("school")}
         </div>
         <form id="todo-form">
           <input class="input" type="text" id="todo-title" placeholder="Task"></input>
@@ -76,6 +49,22 @@ class Todo extends Module {
         </form>
       </section>
     `;
+  }
+
+  createTodoSection(title){
+    let section = `
+      <div class="todo-section">
+        <div class="todo-section-header" onclick="hideList('${title}')">
+          <p id="todo-${title}-head">+</p>
+          <p class="todo-section-label todo-closed">${title}</p>
+          <p class="todo-section-active" id="todo-${title}-open">0</p>
+          <p class="todo-section-next" id="todo-${title}-next"></p>
+        </div>
+        <div class="todo-section-list" id="todo-${title}-list">
+        </div>
+      </div>
+    `;
+    return section;
   }
 
   defineCSS(){//Return the file name

@@ -10,6 +10,7 @@ let currentOpenPersonal = 0;
 let currentOpenHobby    = 0;
 let currentOpenSchool   = 0;
 let activeKey = "";
+let activeList = ""; // Used for edits
 
 
 //"Test Title", "Test Notes", "01/01/2001", "1:00PM", "personal"
@@ -99,7 +100,7 @@ function addTask(title, notes, date, postDate, time, list){
   }).key;
 
   activeKey = newKey;
-  todoForm.reset();
+  todoForm.reset(); // Taking out our values from the add
 }
 
 function handleTaskRemove(key, list, type, todoInfo){
@@ -140,7 +141,7 @@ function handleTaskRemove(key, list, type, todoInfo){
       if(type === "delete"){
         deleteTask(key, list)
       } else if(type === "complete"){
-        completeTask(key, );
+        completeTask(list, key);
       }
     }
   )
@@ -344,20 +345,50 @@ function toggleItemDetails(e){
   }
 }
 
-function editTask(list, activeKey){
-  console.log(todoEditForm.childNodes);
-  //Acces firebase, get current info for placeholder values below
-
-  todoEditForm.childNodes[1].value = "edit placeholder";
-  todoEditForm.childNodes[3].value = "hobby";
-  todoEditForm.childNodes[7].value = "Edit placeholdah";
-  todoEditForm.childNodes[9].valueAsNumber = 01012001;
+function editTask(list, editKey){
+  activeKey = editKey; // Assigning our activeKey to the key we want to edit
+  activeList = list;
+  db.ref('openTasks/' + list + "/" + activeKey).once('value') //Querying DB
+    .then(
+      (res) => {
+        // updating the edit fields
+        let data = res.val();
+        todoEditForm.childNodes[1].value = data.title;
+        todoEditForm.childNodes[3].value = list;
+        todoEditForm.childNodes[7].value = data.notes;
+        if(data.dueDate !== ""){todoEditForm.childNodes[9].valueAsNumber = data.dueDate;}
+      }
+    )
+  //Showing the edit fields
   toggleEditInterface();
 }
 
 function sendEdit(){
-  console.log("sending edit");
+  let DOMItem = document.getElementById(`${activeKey}::${activeList}`);
+
+  let title = todoEditForm.childNodes[1].value;
+  let list  = todoEditForm.childNodes[3].value;
+  let notes = todoEditForm.childNodes[7].value;
+  let date  = todoEditForm.childNodes[9].value;
+
+  DOMItem.childNodes[1].innerHTML = title;
+  DOMItem.childNodes[3].innerHTML = date;
+  DOMItem.childNodes[9].innerHTML = notes;
+  // DOMItem.childNodes[7]
+  // DOMItem.childNodes[3].
+
+  db.ref('openTasks/' + list + "/" + activeKey).set({
+    dueDate: date,
+    dueTime: "",
+    notes: notes,
+    title: title,
+    postDate: new Date()
+  });
+
+  console.log(title, list, notes, date);
+
   toggleEditInterface();
+  activeKey = ""; // Don't want any wires crossing here
 }
 
 watchDB();

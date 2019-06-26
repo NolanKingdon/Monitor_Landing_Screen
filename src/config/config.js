@@ -5,6 +5,13 @@ let config = {
   },
   modules: [
     {
+      name: "Todo",
+      location: 0,
+      config: {
+        "":""
+      }
+    },
+    {
       name: "Launchpad",
       location: 0, //Which column - 0, 1, 2 ...
       config: {

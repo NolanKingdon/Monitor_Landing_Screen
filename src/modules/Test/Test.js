@@ -1,5 +1,8 @@
 const Module = require('../Module.js');
 
+//Keep it modular - any time you have a big block of html, make a function for it so you can really break it down
+//Reference these files if you want to make a new window or something similar
+
 class Test extends Module {
 
   constructor(config){

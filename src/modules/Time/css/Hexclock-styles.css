@@ -1,0 +1,26 @@
+#Hexclock {
+  /* position: absolute;
+  bottom: 30%; */
+  transition: 0.5s;
+  text-align: center;
+  width: 50%;
+  flex-grow: 0;
+}
+
+#clock-wrapper {
+
+}
+
+#Hexclock h1 {
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 28pt;
+  font-weight: 400;
+}
+
+#Hexclock h2 {
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16pt;
+  font-weight: 400;
+}

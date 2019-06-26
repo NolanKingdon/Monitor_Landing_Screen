@@ -1,7 +1,9 @@
 *.txt
 node_modules
 
-#Only until you update to have decent key management elsewhere
-js/youtubePlayer.js
-credentials.json
-js/firebase.js
+#We still have all those keys in here.
+src/modules/youtube/js/youtubePlayer.js
+src/modules/todo/js/firebase.js
+
+#Where I keep the keys:
+src/config/config.js

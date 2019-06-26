@@ -1,5 +1,5 @@
 const icons = ["atom", "chrome", "folder", "steam", "intellij", "notepad", "power"];
-const section = document.getElementById("launchpad");
+const section = document.getElementById("Launchpad");
 
 function createIconElement(icon){
 
@@ -19,7 +19,7 @@ function createIconElement(icon){
     // *** Adding our questionmark for the confirm button
     let pImg = document.createElement("img");
     pImg.className = "launchpad-icon-img";
-    pImg.src = `./images/icons/launchpad/questionmarkv2.png`;
+    pImg.src = `../modules/Launchpad/images/questionmarkv2.png`;
 
     //*** Appending the items together
     shutDownConfirm.appendChild(pImg);
@@ -44,7 +44,7 @@ function createIconElement(icon){
   //***Adding our image to the initial icons
   let img = document.createElement("img");
   img.className = "launchpad-icon-img";
-  img.src = `./images/icons/launchpad/${icon}.png`;
+  img.src = `../modules/Launchpad/images/${icon}.png`;
 
   // *** Adding listeners to inital icons
   addListeners(iconElem);

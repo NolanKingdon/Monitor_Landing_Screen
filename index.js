@@ -1,14 +1,9 @@
-const { app, BrowserWindow } = require('electron');
-const path = require("path");
-const url = require("url");
-//Server vars and setup
-require('./js/node/express-server.js');
-require('./js/node/sys-info.js');
-//launchpad
-require("./js/node/commandExec.js");
-//DEV RELOADS
-require("electron-reload")(__dirname);
 //Electron Window setup
+const { app, BrowserWindow } = require('electron'); //electron
+require("electron-reload")(__dirname);//Quick Reloads for development
+const path = require("path"); // For electron
+const url = require("url"); // For electron
+
 let win;
 
 function createWindow(){
@@ -20,11 +15,11 @@ function createWindow(){
 
   //creating browser window
   win = new BrowserWindow({
-    alwaysOnTop: false, // ******************* Remove when screen widens
+    alwaysOnTop: false,
     frame: false, //External frame
     width: width*0.5,//Setting to a percent of the screen width
     height: height,//Setting to screen height
-    icon: __dirname + '/images/clock.png',
+    icon: __dirname + '/src/core/images/clock.png',
     x: -width*0.5,//Offset so we're on the secondary screen
     y: 0,
   });
@@ -32,13 +27,13 @@ function createWindow(){
 
   //loading index.html
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, '/src/core/index.html'),
     protocol: "file",
     slashes: true,
   }));
 
   //To open dev tools (Dev only)
-  //win.webContents.openDevTools();
+  win.webContents.openDevTools();
   //Handling close
   win.on("closed", () => { win = null });
 }

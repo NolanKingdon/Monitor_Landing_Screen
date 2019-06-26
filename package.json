@@ -2,7 +2,7 @@
   "name": "electron-clock",
   "version": "1.0.0",
   "description": "Simple app to test out electron",
-  "main": "main.js",
+  "main": "app.js",
   "scripts": {
     "start": "electron ."
   },

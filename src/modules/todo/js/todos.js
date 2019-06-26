@@ -193,8 +193,8 @@ function addToDOM(title, notes, date, postDate, time, list){
     <p class="todo-list-item-due">${date}</p>
     <!--<p class="todo-list-item-due-time">${time}</p>-->
     <div class="todo-list-item-btn">
-    <button class="btn todo-btn" onclick="completeTask('${list}', '${activeKey}')"><img src="./images/icons/todo/white-check-mark-hi.png"/></button>
-    <button class="btn todo-btn" onclick="editTask('${list}', '${activeKey}')"><img src="./images/icons/todo/white-pencil-icon.png"/></button>
+    <button class="btn todo-btn" onclick="completeTask('${list}', '${activeKey}')"><img src="../modules/Todo/images/white-check-mark-hi.png"/></button>
+    <button class="btn todo-btn" onclick="editTask('${list}', '${activeKey}')"><img src="../modules/Todo/images/white-pencil-icon.png"/></button>
     </div>
     <div class="todo-list-details">
       <p>${notes}</p>

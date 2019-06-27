@@ -219,6 +219,9 @@ function watchDB(){
     snapOpenHobby    = snap.val().hobby.openNo;
     snapOpenPersonal = snap.val().personal.openNo;
     snapOpenSchool   = snap.val().school.openNo;
+
+    // SEND BACKUP REQUEST WITH INFO
+
 //TODO - Find a way around this repetition. AFAIK you can't modify JSON queries.
     //Updating Metrics Headers
     document.getElementById("todo-personal-open").innerHTML = snapOpenPersonal;
@@ -248,6 +251,20 @@ function watchDB(){
     let personalDOM = document.getElementById("todo-personal-list").childNodes.length-1;
     let hobbyDOM    = document.getElementById("todo-hobby-list").childNodes.length-1;
     let schoolDOM   = document.getElementById("todo-school-list").childNodes.length-1;
+
+    console.log(snap.val());
+    const http = new XMLHttpRequest();
+    const url  = "http://localhost/listBackup"
+    let postInfo = {
+      "hobby":snap.val().hobby,
+      "personal": snap.val().personal,
+      "school": snap.val().school
+    }
+    console.log(postInfo);
+    http.open('POST', url, true);
+    http.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    http.send(JSON.stringify(postInfo));
+
 
     //If we have one more personal DOM item, add it to the end
     if(personalDOM < snapOpenPersonal){

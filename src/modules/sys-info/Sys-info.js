@@ -15,23 +15,34 @@ class SysInfo extends Module {
         <div id="sys-info-body">
 
           <h2 id="sys-header">System Information</h2>
-          <!-- CPU Section -->
-          <p id="sys-cpu-head" class="sys-title-col">CPU:</p>
-          <p id="sys-cpu-info" class="sys-data-col"></p>
-          <p id="processor-speed" class="sys-data-col"></p>
-          <canvas id="cpu-graph" width="450"></canvas>
-          <!-- Display Section -->
-          <p class="sys-title-col">Display:</p>
-          <p id="gpu" class="sys-data-col"></p>
-          <p id="sys-screen" class="sys-data-col"></p>
-          <p class="sys-title-col">Drives:</p>
-          <div id="sys-info-drives">
-
-          </div>
+          ${this.makeCPUSection()}
+          ${this.makeDisplaySection()}
         </div>
         <script src="../modules/Sys-info/js/comp-data.js"></script>
       </section>
     `;
+  }
+
+  makeCPUSection(){
+    let section = `
+      <p id="sys-cpu-head" class="sys-title-col">CPU:</p>
+      <p id="sys-cpu-info" class="sys-data-col"></p>
+      <p id="processor-speed" class="sys-data-col"></p>
+      <canvas id="cpu-graph" width="450"></canvas>
+    `;
+    return section;
+  }
+
+  makeDisplaySection(){
+    let section = `
+      <p class="sys-title-col">Display:</p>
+      <p id="gpu" class="sys-data-col"></p>
+      <p id="sys-screen" class="sys-data-col"></p>
+      <p class="sys-title-col">Drives:</p>
+      <div id="sys-info-drives"></div>
+    `;
+
+    return section;
   }
 
   defineCSS(){//Return the file name

@@ -1,6 +1,4 @@
-console.log("Loaded comp-data.js");
-
-const socket = io.connect('http://localhost');
+const socket = io.connect('http://localhost'); // Connecting to our localhost for socket
 let cpuSpd = document.getElementById("processor-speed");
 let cpuType = document.getElementById("sys-cpu-info");
 let gpu = document.getElementById("gpu");

@@ -14,6 +14,7 @@ class Test extends Module {
       <section id=${this.getName}>
         ${this.makeClock()}
         ${this.makeTimer()}
+        ${this.makeAlarms()}
       </section>
     `;
   }
@@ -28,6 +29,14 @@ class Test extends Module {
     </section>
     `;
     return clock;
+  }
+
+  makeAlarms(){
+    const alarm = `
+
+    `;
+
+    return alarm;
   }
 
   makeTimer(){
@@ -92,7 +101,7 @@ class Test extends Module {
     const scripts = {
       //Will be searched for in the module/js subfolder - To be run in frontent
       //Make your calls to the backend here (Still need to configure the express-server to respond)
-      local: [`${clocktype}.js`, 'timer.js'],
+      local: [`${clocktype}.js`, 'timer.js', 'alarm.js'],
       //Will be added in as is. ex: CDNs
       external: []
     }

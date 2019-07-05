@@ -245,6 +245,22 @@ function watchDB(){
       document.getElementById("todo-school-next").innerHTML = "";
     }
   });
+
+  // Once a load - backup the info
+  db.ref("openTasks/").once("value", (snap) => {
+    console.log(snap.val());
+    const http = new XMLHttpRequest();
+    const url  = "http://localhost/listBackup"
+    let postInfo = {
+        "hobby":snap.val().hobby,
+        "personal": snap.val().personal,
+        "school": snap.val().school
+      }
+      console.log(postInfo);
+      http.open('POST', url, true);
+      http.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+      http.send(JSON.stringify(postInfo));
+  })
   //watch open tasks snapshot
   db.ref("openTasks/").on("value", (snap) => {
     //Getting initial lengths of all snapshot instances
@@ -252,18 +268,6 @@ function watchDB(){
     let hobbyDOM    = document.getElementById("todo-hobby-list").childNodes.length-1;
     let schoolDOM   = document.getElementById("todo-school-list").childNodes.length-1;
 
-    console.log(snap.val());
-    const http = new XMLHttpRequest();
-    const url  = "http://localhost/listBackup"
-    let postInfo = {
-      "hobby":snap.val().hobby,
-      "personal": snap.val().personal,
-      "school": snap.val().school
-    }
-    console.log(postInfo);
-    http.open('POST', url, true);
-    http.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-    http.send(JSON.stringify(postInfo));
 
 
     //If we have one more personal DOM item, add it to the end

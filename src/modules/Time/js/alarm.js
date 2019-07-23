@@ -1,38 +1,58 @@
-//Time looks accessible here - so long as it's loaded after our timer module... No problem then.
+// All of our Tasks
 let activeAlarms = [];
+// All of our tasks due today
 let today = [];
-// Load in DB Connection
+// Using this as the on time to determine if alarm times are valid or will cause errors further down the line
+let onTime = new Date();
+// Using a ternary to assign the 0 if the length is 1 or less. This shouldn't effect top of the hours (4:00) because 0 is 0.
+console.log(onTime.getMinutes().toString().length);
+onTime = onTime.getHours().toString() + (onTime.getMinutes().toString().length > 1 ? onTime.getMinutes().toString() : "0" + onTime.getMinutes().toString());
+onTime = parseInt(onTime);
+// Have a minute interval variable out here to prevent local scope in the interval to create exponential calls
+let minuteInterval;
+let tenInterval;
+let hourInterval;
 
-function addAlarm(){
+// Load in DB Connection
+function addAlarm(time){
   db.ref().child("alarms/").push({
-    title: "Test Alarm 2",
-    dueTime: "16:37",
-    dueDate: "2019-07-10",
+    title: "Test Alarm 1",
+    dueTime: time,
+    dueDate: "2019-07-22",
     repeats: true,
     notes: "This is a test alarm to see if everything is working."
   });
 }
-
-// Load in DB alarms to local storage
-
 
 // *** Load up functions
 function getAlarms(){
   db.ref('alarms/').once("value", (snapshot) => {
     let keys = [];
     let activeAlarmsNoOrder = [];
+    let validTimes = 0;
+
     for(let i=0; i<Object.keys(snapshot.val()).length; i++){
       keys.push(Object.keys(snapshot.val())[i])
-      activeAlarmsNoOrder[i] = {
-        key: keys[i],
-        dueDate: snapshot.val()[keys[i]].dueDate,
-        dueTime: snapshot.val()[keys[i]].dueTime,
-        title: snapshot.val()[keys[i]].title,
-        notes: snapshot.val()[keys[i]].notes,
-        repeats: snapshot.val()[keys[i]].repeats
+
+      let splitTime = snapshot.val()[keys[i]].dueTime.split(":");
+      let comparisonTime = parseInt(splitTime[0] + splitTime[1]);
+      console.log("Comparison Time:" + comparisonTime);
+      console.log("On Time: " + onTime);
+      if(comparisonTime > onTime){
+        activeAlarmsNoOrder[validTimes] = {
+          key: keys[i],
+          dueDate: snapshot.val()[keys[i]].dueDate,
+          dueTime: snapshot.val()[keys[i]].dueTime,
+          title: snapshot.val()[keys[i]].title,
+          notes: snapshot.val()[keys[i]].notes,
+          repeats: snapshot.val()[keys[i]].repeats
+        }
+        validTimes++;
+      } else {
+        //Remove them now from the DB because we don't really need them
       }
     }
-
+    console.log(activeAlarmsNoOrder);
 
     // TODO - Make this modular so I can pass in a list of alarms and have it add to today on the fly -- Will be necessary for
     //        adding in alarms from the view
@@ -65,19 +85,22 @@ function getAlarms(){
               count ++;
           }
         }
+
     }
+    console.log(activeAlarms);
     //Once we have all of our keys
     todaysAlarms();
   });
 }
 
 function todaysAlarms(){
+  console.log(activeAlarms);
   for(let i=0; i<activeAlarms.length; i++){
-    if(activeAlarms[i].dueDate == "2019-07-10"){
+    if(activeAlarms[i].dueDate == `2019-07-22`){ // TODO - figure out how to check the date without calling the time AGAIN
       today.push(activeAlarms[i]);
     }
   }
-
+  console.log(today);
   startWatch();
 }
 
@@ -95,29 +118,83 @@ function todaysAlarms(){
 */
 function startWatch(){
   //This is sorted in the getAlarms method - so we just have to look at the first one in the today list for this comparison
-  // for(let i=0; i<today.length; i++){
-  //
-  //}
-}
+  // Consider checking for the current time when booted up so we don't miss any alarms and fuck everything up
+    time.hours = time.hours.toString();
+    time.minutes = time.minutes.toString();
+    let todayHold = today[0].dueTime.split(":");
+    console.log("Starting Watch");
 
-function checkHours(){
-  let todayHold = today[i].dueTime.split(":");
-  if(time.hours == todayHold[0]){
-    console.log("Same hour");
-    //Check every 10 minutes
-    if(time.minutes.toString()[0] == todayHold[1][0]){
-      console.log("Same 10 minutes");
-      //Check every minute
-      if(time.minutes == todayHold[1]){
-        //Ring the alarm
+    if(time.hours.length < 2){
+      console.log("Fixing the hours to be double digit");
+      time.hours = "0" + time.hours.toString()
+    }
+    if(time.minutes.length < 2){
+      console.log("Fixing minutes to double digit");
+      time.minutes = "0" + time.minutes.toString();
+    }
+
+    if(time.hours == todayHold[0]){ // Checking hours
+      console.log("Same hour");
+      //Check every 10 minutes
+      if(time.minutes.toString()[0] == todayHold[1][0]){ // Checking 10 minutes
+        console.log("Same 10 minutes");
+        //Check every minute
+        if(time.minutes == todayHold[1]){ // Checking Minutes
+          clearAllIntervals();
+          console.log("Ring the alarm");
+          //Ring the alarm
+          console.log(today);
+          today.shift();
+          console.log(today);
+
+          // TODO
+              // Delete the alarm
+                // Out of DB if non-recursive
+
+          startWatch();
+        } else {
+          clearAllIntervals();
+          console.log("Setting 1 minute interval");
+          let nextMin = new Date().getSeconds();
+          nextMin = 60-nextMin;
+          minuteInterval = setInterval(startWatch, nextMin*1000);
+        }
+      } else {
+        console.log("Setting 10 minute interval");
+        //clear 10 minute interval
+        clearAllIntervals();
+        //Check in the next 10 minutes
+        let nextTen = new Date().getMinutes();
+        nextTen = (60 - nextTen)%10; //Minutes until next 10 minute period -%10 ensures that no matter what we're at (23, 33, 43) it only waits for the minutes (3)
+        tenInterval = setInterval(startWatch, nextTen*60000); // Multiplying the number of minutes by a minite in milliseconds
       }
     } else {
-      //Check in the next 10 minutes
+      console.log("Checking the next hour");
+      //Clearing old listener
+      clearAllIntervals();
+      //Check in the next hour
+      let nextHour = new Date().getMinutes();
+      nextHour = 60 - nextHour;
+      hourInterval = setInterval(startWatch, nextHour*60000);
     }
-  } else {
-    //Check in the next hour
-  }
 }
+function clearAllIntervals(){
+  // If we have any intervals, they're getting cleared. Important for when we have rollover checks.
+  /*
+    EXAMPLE:
+
+      -   First alarm at 5:01, check runs at 4:51 -> Going to check in on the next hour. Then going to identify we're in a minute.
+    This skips the clear for the hour if we do it this way. Ergo, we just call this function everytime we want to clear them,
+    and it should do the decisions by itself.
+  */
+  if(hourInterval){clearInterval(hourInterval);}
+  if(tenInterval){clearInterval(tenInterval);}
+  if(minuteInterval){clearInterval(minuteInterval);}
+}
+
+
+
+// TODO -----------------------------------------------------------------------
 // Set up scanning algorithm
   // We want to check to make sure there are any in the hour, 10 minutes, and minutes, in that order
   // Also want one initial look when booted up, then maybe snap to a schedule based on the time emit?
@@ -126,6 +203,7 @@ function checkHours(){
   // Once complete
   // Once Deleted
   // Not if Recursive (Weekly);
+  // Once irrelevant (Missed Alarms)
 
 // If recursive alarms, update the next due date in the DOM AND the DB
 

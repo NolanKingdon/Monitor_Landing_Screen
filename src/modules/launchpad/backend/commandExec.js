@@ -1,5 +1,6 @@
 const commands = {
   "chrome":'"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome"',
+  "firefox":'"C:\\Program Files\\Mozilla Firefox\\firefox.exe"',
   "atom":"C:\\Users\\Nolan\\AppData\\Local\\atom\\atom.exe",
   "steam":'"D:\\Program Files (x86)\\Steam\\Steam.exe"',
   "notepad":"C:\\Windows\\System32\\notepad.exe",

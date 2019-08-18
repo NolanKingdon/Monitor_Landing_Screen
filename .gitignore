@@ -3,6 +3,7 @@
 node_modules
 
 #We still have all those keys in here.
+src/modules/TinyYoutube/js/youtubePlayer.js
 src/modules/youtube/js/youtubePlayer.js
 src/modules/todo/js/firebase.js
 

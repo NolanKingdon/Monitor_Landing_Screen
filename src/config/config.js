@@ -19,7 +19,7 @@ let config = {
       }
     },
     {
-      name: "Youtube",
+      name: "TinyYoutube",
       location: 1,
       config: {
         "":""

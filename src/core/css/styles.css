@@ -39,3 +39,19 @@ body {
   cursor: pointer;
   filter: brightness(110%);
 }
+
+.btn:focus {
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+select:hover {
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+}

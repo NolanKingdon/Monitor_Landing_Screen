@@ -1,0 +1,86 @@
+#yt-missed-video-debug {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  display: none;
+  background-color: white;
+}
+
+ #Youtube {
+   min-height: 39vh;
+   max-width: 576px; /*This appears to be the max width for a third of my screen*/
+   overflow: hidden;
+   background-color: rgba(0,0,0,0.3);
+ }
+
+#yt-control-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: -4px;
+  background-color: rgba(0,0,0,0.2);
+  /*inline-block adds space whereas block didn't on #player*/
+}
+
+#yt-video-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background-color: rgba(0,0,0,0.2);
+}
+
+#Youtube #player {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.input {
+  background-color: #5C5B5B;
+  /* width: 85%; */
+  border: none;
+  padding: 5px;
+  margin: 0;
+  color: white;
+  flex-grow: 4;
+}
+
+.input::placeholder {
+  color: white;
+}
+
+#yt-now-playing {
+  color: white;
+  font-size: 15px;
+  font-family: 'Roboto Mono', monospace; 
+  font-weight: 700;
+  max-width: 75px;
+}
+
+#yt-video-title {
+  color: white;
+  font-size: 13px;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+#yt-volume-slider {
+  -webkit-appearance: none;
+  background: rgba(0,0,0,0.3);
+}
+
+#yt-volume-slider:hover {
+  cursor: pointer;
+}
+
+#yt-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 5px;
+  height: 25px;
+  background: #5C5B5B;
+}
+
+#yt-volume-slider::-webkit-slider-thumb:before{
+  background: green;
+}

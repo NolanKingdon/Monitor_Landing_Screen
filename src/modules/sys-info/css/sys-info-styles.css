@@ -41,7 +41,20 @@
 #processor-speed {
   grid-area: auto / 5 / auto / 6;
 }
+
 #cpu-graph {
+  grid-area: auto / 1 / auto / 7;
+}
+
+#ram-percent {
+  grid-area: auto / 5 / auto / 6;
+}
+
+#sys-ram-info {
+  grid-area: auto / 1 / auto / 4;
+}
+
+#ram-graph {
   grid-area: auto / 1 / auto / 7;
 }
 

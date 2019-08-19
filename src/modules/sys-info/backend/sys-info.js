@@ -29,6 +29,27 @@ io.on('connection', function (socket) {
   }, 1000
   );
 
+  setInterval(
+    () =>{
+      si.mem( (data) => {
+        let total = (data.active/data.total)*100;
+        socket.emit('RAM_METRICS', { total });
+      
+      })
+    },
+    1000
+  )
+
+  // My computer hands out "Unknown" for the manufacturer, making this effectively useless.
+  // si.memLayout( (data) => {
+  //   console.log(data[0].manufacturer);
+  //   console.log(data[0].voltageConfigured);
+  //   socket.emit('RAM_INFO', {
+  //       manu: data[0].manufacturer,
+  //       volt: data[0].voltageConfigured
+  //   })
+  // })
+
   //Websockets are overkill, but it was convenient to keep it all in one place like this
   si.cpu( (data) => {
     cpuInfo = {

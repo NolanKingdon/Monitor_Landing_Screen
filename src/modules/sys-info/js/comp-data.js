@@ -1,6 +1,7 @@
 const socket = io.connect('http://localhost'); // Connecting to our localhost for socket
 let cpuSpd = document.getElementById("processor-speed");
 let cpuType = document.getElementById("sys-cpu-info");
+let ramSpd = document.getElementById("ram-percent");
 let gpu = document.getElementById("gpu");
 let resolution = document.getElementById("sys-screen");
 let drives = document.getElementById("sys-info-drives");
@@ -31,7 +32,6 @@ class CPUGraph {
   }
 
   drawPoints(point){
-
     if(this.points.length < 11){
       this.points.push(point);
     } else {
@@ -65,11 +65,20 @@ class CPUGraph {
 let cpuG = new CPUGraph("cpu-graph");
 cpuG.drawBorder();
 
+let ramG = new CPUGraph("ram-graph");
+ramG.drawBorder();
+
 //Sockets
 socket.on('CPU_METRICS', (data) => {
   cpuSpd.innerHTML = Math.round(data.load) + "%";
   cpuG.drawPoints(Math.round(data.load));
 })
+
+socket.on('RAM_METRICS', (data) => {
+  ramSpd.innerHTML = Math.round(data.total) + "%";
+  ramG.drawPoints(data.total);
+})
+
 
 //Normally I wouldn't use a socket here... but it's convenient to all have in one place
 socket.on('HARDWARE_INFO', (data) => {

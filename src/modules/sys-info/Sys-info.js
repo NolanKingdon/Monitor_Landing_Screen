@@ -13,9 +13,9 @@ class SysInfo extends Module {
     return `
       <section id=${this.getName}>
         <div id="sys-info-body">
-
           <h2 id="sys-header">System Information</h2>
           ${this.makeCPUSection()}
+          ${this.makeRAMSection()}
           ${this.makeDisplaySection()}
         </div>
         <script src="../modules/Sys-info/js/comp-data.js"></script>
@@ -30,6 +30,16 @@ class SysInfo extends Module {
       <p id="processor-speed" class="sys-data-col"></p>
       <canvas id="cpu-graph" width="450"></canvas>
     `;
+    return section;
+  }
+
+  makeRAMSection(){
+    let section = `
+      <p id="sys-ram-head" class="sys-title-col">RAM:</p>
+      <p id="sys-ram-info" class="sys-data-col"></p>
+      <p id="ram-percent" class="sys-data-col"></p>
+      <canvas id="ram-graph" width="450"></canvas>
+    `
     return section;
   }
 

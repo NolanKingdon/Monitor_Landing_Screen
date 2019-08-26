@@ -2,6 +2,7 @@ const socket = io.connect('http://localhost'); // Connecting to our localhost fo
 let cpuSpd = document.getElementById("processor-speed");
 let cpuType = document.getElementById("sys-cpu-info");
 let ramSpd = document.getElementById("ram-percent");
+let ramType = document.getElementById("sys-ram-info");
 let gpu = document.getElementById("gpu");
 let resolution = document.getElementById("sys-screen");
 let drives = document.getElementById("sys-info-drives");
@@ -79,6 +80,10 @@ socket.on('RAM_METRICS', (data) => {
   ramG.drawPoints(data.total);
 })
 
+socket.on('RAM_INFO', (data) =>{
+  // Ram Type
+  ramType.innerHTML = "";
+});
 
 //Normally I wouldn't use a socket here... but it's convenient to all have in one place
 socket.on('HARDWARE_INFO', (data) => {

@@ -1,4 +1,4 @@
-const icons = ["atom", "chrome", "firefox", "folder", "steam", "intellij", "notepad", "power"];
+const icons = ["intellij","firefox", "folder", "steam", "nordVPN", "notepad", "power"];
 const section = document.getElementById("Launchpad");
 
 function createIconElement(icon){

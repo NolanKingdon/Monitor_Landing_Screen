@@ -18,10 +18,10 @@ More detailed description of each module and it's functions to come.
 ## Comparison Images
 
 New Build - Work in progress! Added in several modules that help streamline/organize my desktop.
-![New Build](https://github.com/NolanKingdon/Monitor_Landing_Screen/blob/master/images/currentBuild.PNG)
+![New Build](https://github.com/NolanKingdon/Monitor_Landing_Screen/blob/master/src/core/images/currentBuild.png)
 
 The initial build we started from - The hex clock
-![Comparison Image](https://github.com/NolanKingdon/electron-hex-clock/blob/master/images/comparison.PNG "Comparison Image")
+![Comparison Image](https://github.com/NolanKingdon/Monitor_Landing_Screen/blob/master/src/core/images/comparison.PNG "Comparison Image")
 
 
 Just electron and vanilla JavaScript

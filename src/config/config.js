@@ -43,6 +43,7 @@ let config = {
       name: "Sys-info",
       location: 1,
       config: {
+        drives: ["C:", "D:"], // Drives you can't disconnect (system drives)
         "":""
       }
     }

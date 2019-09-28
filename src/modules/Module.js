@@ -1,6 +1,6 @@
 class Module {
 
-  constructor(config, name){
+  constructor(config){
     this.config = config;
     this.name = config.name;
   }

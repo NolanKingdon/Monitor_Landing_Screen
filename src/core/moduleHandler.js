@@ -15,10 +15,14 @@ let scriptPile = {
   external: []
 };
 
+// Iterating our config file
 for(let i=0; i<config.modules.length; i++){
-  //Loading the module into existance
+  // Adding a reference to the current name (From the config file)
   curName = config.modules[i].name;
+  // Requiring the necessary file --> Based on name. File structure depends on the module
+  // Having the same name as the file path
   currentMod = require(`../modules/${curName}/${curName}.js`);
+  // Creating the currentModule with the module we just loaded in - TODO - fix this redundancy
   currentMod = new currentMod(config.modules[i]);
   //Adding HTML to the template string
   DOMPile[config.modules[i].location] += currentMod.getDOM;

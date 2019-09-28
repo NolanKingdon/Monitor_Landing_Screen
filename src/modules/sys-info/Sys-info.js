@@ -4,6 +4,12 @@ class SysInfo extends Module {
 
   constructor(config){
     super(config);
+    
+    if(config.config.drives.length > 0){
+      console.log(config.config.drives);
+    }
+    // if(config.drives.length() > 0){
+    // }
     // console.log(this.config.name + " module load started");
   }
 

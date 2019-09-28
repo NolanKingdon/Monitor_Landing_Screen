@@ -31,7 +31,7 @@ function setDate(time){
 }
 
 function setBackground(){
-  body.style.backgroundColor =  `#1B0273`; //Nice dark purple
+  body.style.background =  `linear-gradient(180deg, rgba(255,213,0,1) 10%, rgba(152,58,1,1) 100%)`;//`#1B0273`; //Nice dark purple --> change back to background color here
 }
 
 function updateTime(oldTime){

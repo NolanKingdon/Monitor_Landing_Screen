@@ -5,7 +5,7 @@ const { exec } = require('child_process');
 const commands = require('../modules/Launchpad/backend/commandExec.js');
 const io = require('socket.io')(server);
 const bp = require('body-parser');
-let VPN_TOGGLE = "-c"; // -c is connect, -d is disconnect
+let VPN_ACTIVE = false;
 
 app.use(bp.json());
 app.use(bp.urlencoded({
@@ -28,17 +28,26 @@ app.get('/launchpad', function(req, res){
   if(query == "nordVPN"){
   //  commands[query] = commands[query] + VPN_TOGGLE;
     //console.log(commands[query]);
-    if(VPN_TOGGLE === "-c"){
-      VPN_TOGGLE = "-d";
+    if(VPN_ACTIVE){
+      // VPN is Currently active
+      exec("D:\\Documents\\JavaScript\\node\\electron\\monitor-home-screen\\src\\modules\\launchpad\\backend\\nordD.bat", (err, stdout, stderr) =>{
+        if(err) console.log(err);
+      })
+      VPN_ACTIVE = false;
     } else {
-      VPN_TOGGLE = "-c";
+      // VPN is currently inactive
+      exec("D:\\Documents\\JavaScript\\node\\electron\\monitor-home-screen\\src\\modules\\launchpad\\backend\\nordC.bat", (err, stdout, stderr) =>{
+        if(err) console.log(err);
+      VPN_ACTIVE = true;
+      })
     }
+  } else {
+    exec(commands[query], (err, stdout, stderr) => {
+      if(err)console.log(err);
+      console.log(commands[query]);
+    });
   }
 
-  exec(commands[query], (err, stdout, stderr) => {
-    if(err)console.log(err);
-    console.log(commands[query]);
-  });
 })
 
 app.get('/moduleHandler', function(req, res){

@@ -35,11 +35,11 @@ function setBackground(){
 }
 
 function updateTime(oldTime){
-  if(oldTime.seconds === 59) {
+  if(oldTime.seconds >= 59) {
     oldTime.seconds = "00";
-    if(oldTime.minutes === 59) {
+    if(oldTime.minutes >= 59) {
       oldTime.minutes = 0;
-      if (oldTime.hours === 23){
+      if (oldTime.hours >= 23){
         currTime = new Date();
         /*
         Requesting a new Date daily - ensures I don't have to calculate days in

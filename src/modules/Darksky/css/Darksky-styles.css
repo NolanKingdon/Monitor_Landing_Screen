@@ -1,0 +1,65 @@
+body {
+  background-color: green;
+}
+
+.weather-text {
+  margin: 0px;
+  padding: 0px;
+}
+
+#weather-container {
+  display: inline-block;
+  height: 275px;
+  width: 420px;
+  background-color: rgba(0,0,0,0.2);
+}
+
+#weather-topbar, #weather-botbar {
+  display: block;
+  /* height: 10px; */
+  margin: 0px;
+  padding: 0px;
+  /* border: 1px solid black; */
+}
+
+/* Annoying, but sometimes it be like that */
+#weather-sides {
+  display: flex;
+}
+
+#weather-right-side {
+  display: inline-grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0px;
+  /* Calculated height/width from auto */
+  width: auto;
+  height: auto;
+  /* background-image: radial-gradient(ellipse, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.75) 50%, transparent 60%);  */
+}
+
+
+.weather-tile {
+  text-align: center;
+  /* background-color: rgb(214, 129, 0); */
+  height: auto;
+  width: 95px;
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid white;
+}
+
+.weather-tile p {
+  margin: 0px;
+  padding: 0px;
+}
+
+#weather-left-side {
+  text-align: center;
+  display: inline-block;
+  height: auto;
+  width: 110px;
+  border: 1px solid white;
+}
+
+

@@ -8,4 +8,4 @@ src/modules/youtube/js/youtubePlayer.js
 src/modules/todo/js/firebase.js
 
 #Where I keep the keys:
-./src/config/config.js
+src/config/*

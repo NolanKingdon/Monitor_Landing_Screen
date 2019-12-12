@@ -10,8 +10,12 @@ body {
 #weather-container {
   display: inline-block;
   height: 275px;
-  width: 420px;
+  width: 480px;
   background-color: rgba(0,0,0,0.2);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10pt;
+  color: white;
+  align-content: center;
 }
 
 #weather-topbar, #weather-botbar {
@@ -31,7 +35,7 @@ body {
   display: inline-grid;
   grid-template-rows: auto;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0px;
+  grid-gap: 1em;
   /* Calculated height/width from auto */
   width: auto;
   height: auto;
@@ -46,7 +50,7 @@ body {
   width: 95px;
   margin: 0px;
   padding: 0px;
-  border: 1px solid white;
+  /* border: 1px solid white; */
 }
 
 .weather-tile p {
@@ -59,7 +63,7 @@ body {
   display: inline-block;
   height: auto;
   width: 110px;
-  border: 1px solid white;
+  /* border: 1px solid white; */
 }
 
 

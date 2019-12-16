@@ -13,7 +13,8 @@ class Launchpad extends Module {
     return `
     <div id="weather-container">
       <div id="weather-topbar">
-          <button><img src="" alt=""></button>
+          <button id="weather-refresh"><img src="../modules/Darksky/images/refresh.png"></button>
+          <button id="weather-toggle"><img src="../modules/Darksky/images/hourview.png" alt=""></button>
       </div>
       <div id="weather-sides">
           <div id="weather-left-side">
@@ -25,7 +26,9 @@ class Launchpad extends Module {
           <div id="weather-right-side">
           </div>
       </div>
-      <div id="weather-botbar"></div>
+      <div id="weather-botbar">
+        <p id="weather-description"></p>
+      </div>
     </div>
     `;
   }

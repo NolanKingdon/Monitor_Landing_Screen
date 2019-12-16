@@ -42,7 +42,6 @@ body {
   /* background-image: radial-gradient(ellipse, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.75) 50%, transparent 60%);  */
 }
 
-
 .weather-tile {
   text-align: center;
   /* background-color: rgb(214, 129, 0); */
@@ -56,6 +55,24 @@ body {
 .weather-tile p {
   margin: 0px;
   padding: 0px;
+}
+
+#weather-topbar {
+  text-align: right;
+}
+
+#weather-toggle, #weather-refresh {
+  border: none;
+  background: none;
+}
+
+#weather-toggle:hover, #weather-refresh:hover {
+  cursor: pointer;
+}
+
+#weather-toggle img, #weather-refresh img {
+  height: 25px;
+  width: 25px;
 }
 
 #weather-left-side {

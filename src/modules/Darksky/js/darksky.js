@@ -17,6 +17,8 @@ class DarkSky {
             this.tiles += new Tile().generateHTML(i);
         }
 
+        // Starting out by looking at all the days of the week
+        this.weekview = true;
         this.skyconDict = {
             "clear-day":"CLEAR_DAY",
             "clear-night":"CLEAR_NIGHT",
@@ -41,8 +43,13 @@ class DarkSky {
         this.createSkycons();
         this.recentCall = this.getAPIData();
 
-        // Fade event -> Repurpose
-        // $("#fader").click( () => this.fadeEvent());   
+        $("#weather-toggle").click( () => {
+            this.toggleView();
+        });
+
+        $("#weather-refresh").click( () => {
+            this.update();
+        })
     }
 
     update(){
@@ -75,60 +82,98 @@ class DarkSky {
         $("#weather-main-actual").html(`${currentApparentTemp}&deg;C`);
         $("#weather-main-feels").html(`(${currentTemp}&deg;C)`);
         $("#weather-main-description").html(json.currently.summary);
+
+        // Updating the description paragraph
+        if(this.weekview){
+            $("#weather-description").html(json.daily.summary);
+        } else {
+            $("#weather-description").html(json.hourly.summary);
+        }
+
         // Adding in tiles with appropriate skycon canvases
         let today = new Date().getDay();
         // Getting the appropriate division (Default to day)
-        let count = 0;
+        let count = 0; // used for listener assignment, fade out times, and weekday tracking
+        let hour = 0; // Used exclusively to track the hour we look at in the hours view
         $("#weather-right-side").html(this.tiles).children().each( function(){
-            let tempMax = Math.round(json.daily.data[count].apparentTemperatureMax);
-            let tempMin = Math.round(json.daily.data[count].apparentTemperatureMin);
-            let precipChance = json.daily.data[count].precipProbability;
-            let windSpeed = Math.round(json.daily.data[count].windSpeed);
-            let windDirection = json.daily.data[count].windBearing;
-
-            let id = $(this).children("canvas")[0].id;
-            self.skycons.add(id, Skycons[self.skyconDict[json.daily.data[count].icon]]);
-
-
-            let firstP = $(this).children("p")[0];
-            let secondP = $(this).children("p")[1];        
-            
-            /**
-             * STOPPED HERE -> Bumping into some issues with the count variable in toggle
-             *  First load gives all thursdays. Second load gives proper shit, BUT then will
-             * flop over to thursdays. Some Janky shit in the console.
-             */
-
-            let currentC = count;
-            // Setting the interval
-            this.interval = setInterval(()=>self.toggleTileContents({
-                tempMax,
-                tempMin,
-                precipChance,
-                windSpeed,
-                windDirection,
-                today,
-                currentC
-            }, this), 10000);
-            count++;
-            $(firstP).html(`${json.daily.data[count].temperatureMax}&deg;C to ${json.daily.data[count].temperatureMin}&deg;C`);
-            $(secondP).html(`${self.day[(new Date().getDay()+count)%6]}`);
-            firstP.className = "temps";
+            if(self.weekview){
+                let tempMax = Math.round(json.daily.data[count].apparentTemperatureMax);
+                let tempMin = Math.round(json.daily.data[count].apparentTemperatureMin);
+                let precipChance = json.daily.data[count].precipProbability;
+                let windSpeed = Math.round(json.daily.data[count].windSpeed);
+                let windDirection = json.daily.data[count].windBearing;
+    
+                let id = $(this).children("canvas")[0].id;
+                self.skycons.add(id, Skycons[self.skyconDict[json.daily.data[count].icon]]);
+    
+                let firstP = $(this).children("p")[0];
+                let secondP = $(this).children("p")[1];        
+    
+                let currentC = count;
+                // Setting the interval
+                this.interval = setInterval(()=>self.toggleTileContents({
+                    tempMax,
+                    tempMin,
+                    precipChance,
+                    windSpeed,
+                    windDirection,
+                    today,
+                    currentC
+                }, this), 10000);
+                count++;
+                $(firstP).html(`${json.daily.data[count].temperatureMax}&deg;C to ${json.daily.data[count].temperatureMin}&deg;C`);
+                $(secondP).html(`${self.day[(new Date().getDay()+count)%6]}`);
+                firstP.className = "temps";
+            } else {
+                let tempMax = Math.round(json.hourly.data[hour].apparentTemperature);
+                let tempMin = Math.round(json.hourly.data[hour].temperature);
+                let precipChance = json.hourly.data[hour].precipProbability;
+                let windSpeed = Math.round(json.hourly.data[hour].windSpeed);
+                let windDirection = json.hourly.data[hour].windBearing;
+    
+                let id = $(this).children("canvas")[0].id;
+                self.skycons.add(id, Skycons[self.skyconDict[json.hourly.data[hour].icon]]);
+    
+                let firstP = $(this).children("p")[0];
+                let secondP = $(this).children("p")[1];        
+    
+                let currentC = hour;
+                // Setting the interval
+                this.interval = setInterval(()=>self.toggleTileContents({
+                    tempMax,
+                    tempMin,
+                    precipChance,
+                    windSpeed,
+                    windDirection,
+                    today,
+                    currentC
+                }, this), 10000);
+                count++;
+                hour += 4; // 24 hours / 6 (num of tiles) equal intervals of 4
+                $(firstP).html(`${Math.round(json.hourly.data[hour].apparentTemperature)}&deg;C\n(${Math.round(json.hourly.data[hour].temperature)}&deg;C)`);
+                $(secondP).html(`${(new Date().getHours()+hour)%24}:00h`);
+                firstP.className = "temps";
+            }
             self.fadeInElements(fadeInTime);
         });
 
     }
 
     fadeOutElements(time){
-
         let children = $("#weather-right-side").children();
         // let time = 75;
         let fadeTime = time;
         // Adding in +1 to children length to account for the main icon on the left side
         let delayOut = time * (children.length + 1); 
         let delayIn = (time*1.75) * (children.length + 1);
-
         
+        // Fadeout for main tile -> Want the fade effect to be bottom right to top left
+        setTimeout(() => {
+            $("#weather-left-side").fadeOut(fadeTime*4);
+            // The paragraph fades out with the left side
+            $("#weather-description").fadeOut(fadeTime*4);
+        }, delayOut);
+        delayOut -= fadeTime;        
         // Cool fadeout sequence for the tiles
         $("#weather-right-side").children().each( function(){
             setTimeout(()=>{
@@ -136,16 +181,13 @@ class DarkSky {
             }, delayOut);   
             delayOut -= fadeTime;
         });
-        // Fadeout for main tile -> Want the fade effect to be bottom right to top left
-        setTimeout(() => {
-            $("#weather-left-side").fadeOut(fadeTime*8);
-        }, delayOut);
         return delayIn;
     }
     
     fadeInElements(delayIn){
         // Fading back in
         $("#weather-left-side").fadeIn(350);
+        $("#weather-description").fadeIn(350);
         $("#weather-right-side").children().fadeIn(350);
     }
 
@@ -163,20 +205,30 @@ class DarkSky {
         })
         .then(response => response.json())
         .then(j => {
+            // Current Temperature
             let currentApparentTemp = Math.round(j.currently.apparentTemperature);
             let currentTemp = Math.round(j.currently.temperature);
             this.skycons.add("weather-main", Skycons[this.skyconDict[j.currently.icon]]);
             $("#weather-main-actual").html(`${currentApparentTemp}&deg;C `);
             $("#weather-main-feels").html(`(${currentTemp}&deg;C)`);
             $("#weather-main-description").html(j.currently.summary);
+            // Description Paragraph
+            if(this.weekview){
+                $("#weather-description").html(j.daily.summary);
+            } else {
+                $("#weather-description").html(j.hourly.summary);
+            }
             // Adding in tiles with appropriate skycon canvases
             let today = new Date().getDay();
             // Getting the appropriate division (Default to day)
             let count = 1;
+            let hour = 0;
+            // Future forcast 
             $("#weather-right-side").html(this.tiles).children().each( function(){
-                let tempMax = Math.round(j.daily.data[count].apparentTemperatureMax);
-                let tempMin = Math.round(j.daily.data[count].apparentTemperatureMin);
-                let precipChance = j.daily.data[count].precipProbability;
+                // This is the issue -> Adjust for weekly/daily view here too
+                let tempMax = (this.weekview ? Math.round(j.daily.data[count].apparentTemperatureMax) : Math.round(j.hourly.data[hour].apparentTemperature));
+                let tempMin = (this.weekview ? Math.round(j.daily.data[count].apparentTemperatureMin) : Math.round(j.hourly.data[hour].temperature));
+                let precipChance = Math.round(j.daily.data[count].precipProbability);
                 let windSpeed = Math.round(j.daily.data[count].windSpeed);
                 let windDirection = j.daily.data[count].windBearing;
 
@@ -206,6 +258,7 @@ class DarkSky {
                     currentC
                 }, this), 10000);
                 count++;
+                hour += 4;
             });
             skycons.play();
             json = j;
@@ -222,7 +275,9 @@ class DarkSky {
             $(secondP).fadeOut(400);
             setTimeout( () => {
                 $(firstP).html(`${params.tempMax}&deg;C to ${params.tempMin}&deg;C`);
-                $(secondP).html(`${this.day[(params.today+params.currentC)%6]}`);
+                if(this.weekview){
+                    $(secondP).html(`${this.day[(params.today+params.currentC)%6]}`);
+                }
             }, 500);
             firstP.className = "temps";
             $(firstP).fadeIn();
@@ -234,11 +289,11 @@ class DarkSky {
             $(firstP).fadeOut(400);
             $(secondP).fadeOut(400);
             setTimeout( () => {
-                //$(firstP).html(`${params.tempMax}&deg;C to ${params.tempMin}&deg;C`);
+                // If we're looking at the week, not the hours
                 $(firstP).html(`${params.windSpeed}Km/h ${charDirection}`);
                 firstP.className = "winds";
                 $(secondP).html(`${params.precipChance*100}% Rain`);
-                //$(secondP).innerHTML = `${this.day[(params.today+params.count)%6]}`;
+                
             }, 500);
             firstP.className = "temps";
             $(firstP).fadeIn();
@@ -274,9 +329,17 @@ class DarkSky {
         }
         return letterDir   
     }
+
+    toggleView(){
+        if(!this.weekview){
+            $("#weather-toggle").children("img").attr("src","../modules/Darksky/images/hourview.png");
+        } else {
+            $("#weather-toggle").children("img").attr("src","../modules/Darksky/images/weekview.png");
+        }
+        this.weekview = !this.weekview;
+        this.update();
+    }
 }
-
-
 
 
 $(document).ready(()=>{

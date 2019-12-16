@@ -72,7 +72,7 @@ class DarkSky {
         let currentTemp = Math.round(json.currently.temperature);
         // re-adding the main, now updated skycon
         this.skycons.add("weather-main", Skycons[this.skyconDict[json.currently.icon]]);
-        $("#weather-main-actual").html(`${currentApparentTemp}&deg;C `);
+        $("#weather-main-actual").html(`${currentApparentTemp}&deg;C`);
         $("#weather-main-feels").html(`(${currentTemp}&deg;C)`);
         $("#weather-main-description").html(json.currently.summary);
         // Adding in tiles with appropriate skycon canvases
@@ -124,21 +124,28 @@ class DarkSky {
         let children = $("#weather-right-side").children();
         // let time = 75;
         let fadeTime = time;
-        let delayOut = time * children.length; 
-        let delayIn = (time*1.75) * children.length;
+        // Adding in +1 to children length to account for the main icon on the left side
+        let delayOut = time * (children.length + 1); 
+        let delayIn = (time*1.75) * (children.length + 1);
 
-        // Cool fadeout sequence
+        
+        // Cool fadeout sequence for the tiles
         $("#weather-right-side").children().each( function(){
             setTimeout(()=>{
                 $(this).fadeOut(fadeTime*4);
             }, delayOut);   
             delayOut -= fadeTime;
         });
+        // Fadeout for main tile -> Want the fade effect to be bottom right to top left
+        setTimeout(() => {
+            $("#weather-left-side").fadeOut(fadeTime*8);
+        }, delayOut);
         return delayIn;
     }
     
     fadeInElements(delayIn){
         // Fading back in
+        $("#weather-left-side").fadeIn(350);
         $("#weather-right-side").children().fadeIn(350);
     }
 
@@ -274,7 +281,10 @@ class DarkSky {
 
 $(document).ready(()=>{
     const darkSky = new DarkSky();
-    //setTimeout(()=>{darkSky.update(); console.log("TIS AN UPDATE")}, 13000);
+    setInterval(()=>{
+        darkSky.update();
+        // 15 minute interval by default -> Change in config potentially
+    }, 900000);
     // Fetching API info
     // Generating tiles
 });

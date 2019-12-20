@@ -8,10 +8,14 @@ $("#console-window").on("click", (e) => {
 $("#console-input").keydown(function(key){
     // Enter key check
     if(key.keyCode === 13){
-        console.log(this.value);
-        $(this).attr("readonly");
-        cmdSocket.emit("COMMAND_GIVEN", {command: this.value});
-        this.value = "";
+        if(this.value === "clear"){
+            $("#console-inputbar").siblings().remove();
+            this.value = "";
+        } else {
+            $(this).attr("readonly");
+            cmdSocket.emit("COMMAND_GIVEN", {command: this.value});
+            this.value = "";
+        }
     }
 })
 
@@ -26,12 +30,11 @@ cmdSocket.on("COMMAND_ERROR", (data) => {
 });
 cmdSocket.on("COMMAND_STDOUT", (data) => {
     console.log(data);
-    // TODO -> Split, flip, THEN iterate
     data.split("\n").forEach( line => {
         line = line.replace("<","&lt;");
         line = line.replace(">","&gt;");
         console.log(line.replace(/ +(?= )/g,''));
-        $("#console-window").prepend(`<pre class="command-stdout">${line.replace(/ +(?= )/g,'\t')}</pre>`);
+        $("#console-inputbar").before(`<pre class="command-stdout">${line.replace(/ +(?= )/g,'\t')}</pre>`);
     });
 });
 cmdSocket.on("COMMAND_STDERR", (data) => {

@@ -118,7 +118,8 @@ class DarkSky {
                     windSpeed,
                     windDirection,
                     today,
-                    currentC
+                    currentC,
+                    hour
                 }, this), 10000);
                 count++;
                 $(firstP).html(`${json.daily.data[count].temperatureMax}&deg;C to ${json.daily.data[count].temperatureMin}&deg;C`);
@@ -146,7 +147,8 @@ class DarkSky {
                     windSpeed,
                     windDirection,
                     today,
-                    currentC
+                    currentC,
+                    hour
                 }, this), 10000);
                 count++;
                 hour += 4; // 24 hours / 6 (num of tiles) equal intervals of 4
@@ -244,7 +246,8 @@ class DarkSky {
                     windSpeed,
                     windDirection,
                     today,
-                    currentC
+                    currentC,
+                    hour
                 }, this);
 
                 // Setting the interval
@@ -255,7 +258,8 @@ class DarkSky {
                     windSpeed,
                     windDirection,
                     today,
-                    currentC
+                    currentC,
+                    hour
                 }, this), 10000);
                 count++;
                 hour += 4;
@@ -277,6 +281,8 @@ class DarkSky {
                 $(firstP).html(`${params.tempMax}&deg;C to ${params.tempMin}&deg;C`);
                 if(this.weekview){
                     $(secondP).html(`${this.day[(params.today+params.currentC)%6]}`);
+                } else {
+                    $(secondP).html(`${(new Date().getHours()+params.hour)%24}:00h`);
                 }
             }, 500);
             firstP.className = "temps";

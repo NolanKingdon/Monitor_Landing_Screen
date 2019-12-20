@@ -1,0 +1,19 @@
+#console-window {
+  height: 250px;
+  overflow-y: auto;
+  overflow-x: auto;
+  width: 100%;
+  border: 1px solid black;
+}
+
+#console-inputbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+#console-input {
+  flex-grow: 1;
+  background: none;
+  border: none;
+}

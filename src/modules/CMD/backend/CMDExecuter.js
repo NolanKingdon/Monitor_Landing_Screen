@@ -8,7 +8,7 @@ console.log("CMDExecuter socket loaded");
 
 function runCommand(command, socket){
     console.log(command);
-    // WORKING SOLUTION -> But it makes pings slow, so lets go back to the first convoluted attempt with spawn
+    // WORKING SOLUTION -> But it makes pings slow
     let result = {
         path,
         error: "",
